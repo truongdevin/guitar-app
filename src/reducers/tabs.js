@@ -9,7 +9,6 @@ export default function(state=INITIAL_STATE, action) {
     case FETCH_TABS:
       var jsonResult;
       parseString(action.payload.data, (err, result) => jsonResult = result.results.result);
-      console.log(jsonResult);
       return { ...state, all: jsonResult };
     default:
       return state;
