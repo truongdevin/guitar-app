@@ -6,9 +6,18 @@ export class TabShow extends Component {
   componentWillMount() {
     this.props.fetchTab(this.props.params.id);
   }
+
+  parseHTML() {
+    let __html = this.props.selected.replace(/\[ch\]|\[\/ch\]/g, '');
+    return { __html };
+  }
+
   render() {
+    if (!this.props.selected) {
+      return <div>Loading...</div>;
+    }
     return (
-      <div dangerouslySetInnerHTML={{ __html:this.props.selected }} />
+      <div dangerouslySetInnerHTML={this.parseHTML()} />
     );
   }
 }
