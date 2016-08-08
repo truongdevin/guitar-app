@@ -1,4 +1,4 @@
-import { FETCH_TABS, fetchTabs } from "../actions/index";
+import { FETCH_TABS, FETCH_TAB } from "../actions/index";
 
 const INITIAL_STATE = { all: [], selected: null };
 
@@ -10,6 +10,10 @@ export default function(state=INITIAL_STATE, action) {
       var jsonResult;
       parseString(action.payload.data, (err, result) => jsonResult = result.results.result);
       return { ...state, all: jsonResult };
+
+    case FETCH_TAB:
+      return { ...state, selected: action.payload.data };
+
     default:
       return state;
   }
