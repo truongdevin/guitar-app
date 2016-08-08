@@ -15,7 +15,6 @@ export class SearchBar extends Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.fetchTabs(this.state.search);
-    console.log('submitted');
   }
 
   render() {
