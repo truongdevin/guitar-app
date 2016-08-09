@@ -19,13 +19,17 @@ export class SearchBar extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <input
-          type='text'
-          placeholder="Enter artist or song name"
-          value={this.state.search}
-          onChange={this.handleChange.bind(this)} />
-      </form>
+      <div>
+        <div className='center'>Search</div>
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <input
+            className="search-bar"
+            type='text'
+            placeholder="Enter artist or song name"
+            value={this.state.search}
+            onChange={this.handleChange.bind(this)} />
+        </form>
+      </div>
     );
   }
 }

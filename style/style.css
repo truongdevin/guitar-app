@@ -8,10 +8,13 @@ ul, li {
   list-style: none;
 }
 
-body { margin:0; }
+body {
+  margin:0;
+}
 
 div {
   font-family: Roboto;
+  /*text-align: center;*/
 }
 
 .tabs {
@@ -54,4 +57,32 @@ div {
   -moz-user-select: none;      /* Firefox */
   -ms-user-select: none;       /* Internet Explorer/Edge */
   cursor: default;
+}
+
+.center {
+  text-align: center;
+}
+
+.img-container {
+  font-size: 48px;
+  color: white;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  text-shadow: #000 0px 0px 1px;
+  -webkit-font-smoothing: antialiased;
+
+}
+
+.search-bar {
+  /*font-size: 18px;*/
+  margin: 30px;
 }
