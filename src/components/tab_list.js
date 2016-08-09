@@ -7,8 +7,11 @@ export class TabList extends Component {
     return this.props.tabs.map((tab) => {
       let { id, name, artist, rating, url } = tab.$;
       return (
-        <li key={id} onClick={() => browserHistory.push('/tabs/'+id)}>
-          <div>Title: {name}, Artist: {artist}, Rating: {rating}, URL: {url}</div>
+        <li key={id}
+          className='list-item'
+          onClick={() => browserHistory.push('/tabs/'+id)}>
+          <div>{name} - {artist}</div>
+          <div> Rating: {rating}</div>
         </li>
       );
     })
