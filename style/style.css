@@ -10,6 +10,7 @@ ul, li {
 
 body {
   margin:0;
+  background-color: lightgrey;
 }
 
 div {
@@ -83,6 +84,18 @@ div {
 }
 
 .search-bar {
-  /*font-size: 18px;*/
+  box-sizing: border-box;
+  font-size: 18px;
   margin: 30px;
+  text-align: center;
+  /*width: 70%;*/
+  /*padding: 12px 20px;*/
+  height: 40px;
+  min-width: 30vw;
+  border-radius: 10px;
+}
+
+.search-bar:focus {
+  outline: none;
+  border: 3px solid lightblue;
 }
