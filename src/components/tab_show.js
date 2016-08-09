@@ -17,7 +17,7 @@ export class TabShow extends Component {
       return <div>Loading...</div>;
     }
     return (
-      <div dangerouslySetInnerHTML={this.parseHTML()} />
+      <div className="tabs" dangerouslySetInnerHTML={this.parseHTML()} />
     );
   }
 }
