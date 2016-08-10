@@ -20,7 +20,7 @@ export class SearchBar extends Component {
   render() {
     return (
       <div>
-        <div className='center'>Search</div>
+        <div className='page-title'>Search</div>
         <form onSubmit={this.handleSubmit.bind(this)}>
           <input
             className="search-bar"

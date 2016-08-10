@@ -6,8 +6,7 @@ export default class NavBar extends Component {
     return (
       <ul className="nav-container noselect" >
         <li className="home" onClick={() => browserHistory.push('/')}>MusicLand</li>
-        <li>Search</li>
-        <li>Github</li>
+        <li onClick={() => window.open('https://github.com/truongdevin/guitar-app','_blank')}>Github</li>
       </ul>
     );
   }
