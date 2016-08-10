@@ -5,11 +5,14 @@ import { browserHistory } from 'react-router';
 export class TabList extends Component {
   renderTabs() {
     return this.props.tabs.map((tab) => {
-      let { id, name, artist, rating, url } = tab.$;
+      const { id, name, artist, rating, url } = tab.$;
       return (
         <li key={id}
           className='list-item'
-          onClick={() => browserHistory.push('/tabs/'+id)}>
+          onClick={() => browserHistory.push({
+            pathname: '/tabs/'+id,
+            state: { name, artist }
+          })}>
           <div>{name} - {artist}</div>
           <div> Rating: {rating}</div>
         </li>

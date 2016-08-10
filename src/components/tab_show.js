@@ -13,16 +13,16 @@ export class TabShow extends Component {
   }
 
   render() {
+    const { name, artist } = this.props.location.state;
     const img = `url('../imgs/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
-
     if (!this.props.selected) {
       return <div>Loading...</div>;
     }
     return (
       <div>
         <div className="img-container noselect" style={{ backgroundImage: img }}>
-          <div className="page-title">Bet On It</div>
-          <div className="page-title">Zac Efron</div>
+          <div className="page-title">{name}</div>
+          <div className="page-title">{artist}</div>
         </div>
         <div className='tab-container'>
           <div className="tabs" dangerouslySetInnerHTML={this.parseHTML()} />
