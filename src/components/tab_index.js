@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-
 import SearchBar from './search_bar';
 import TabList from './tab_list';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class TabIndex extends Component {
   constructor(props) {
@@ -19,9 +19,13 @@ export default class TabIndex extends Component {
   render() {
     return (
       <div>
-        <div className="img-container noselect" style={this.state.divStyle}>
-          <SearchBar />
-        </div>
+        <ReactCSSTransitionGroup transitionName="transition"
+          transitionAppear = {true} transitionAppearTimeout = {500}
+          transitionEnter = {false} transitionLeave = {false}>
+          <div className="img-container noselect" style={this.state.divStyle}>
+            <SearchBar />
+          </div>
+        </ReactCSSTransitionGroup>
         <div className='list-container'>
           <TabList />
         </div>

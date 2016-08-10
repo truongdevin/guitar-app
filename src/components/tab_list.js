@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export class TabList extends Component {
   renderTabs() {
@@ -23,7 +24,11 @@ export class TabList extends Component {
   render() {
     return (
       <ul>
-        {this.renderTabs()}
+        <ReactCSSTransitionGroup transitionName="transition"
+          transitionAppear = {true} transitionAppearTimeout = {500}
+          transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+          {this.renderTabs()}
+        </ReactCSSTransitionGroup>
       </ul>
     );
   }
