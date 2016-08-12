@@ -15,9 +15,7 @@ export default class TabIndex extends Component {
         <div className="img-container noselect" style={this.divStyle}>
           <SearchBar />
         </div>
-        <div className='list-container'>
-          <TabList />
-        </div>
+        <TabList />
       </div>
     );
   }

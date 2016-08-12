@@ -21,8 +21,11 @@ export class TabList extends Component {
   }
 
   render() {
+    if (this.props.tabs.length === 0) {
+      return <div/>
+    }
     return (
-      <ul>
+      <ul className="list-container">
         {this.renderTabs()}
       </ul>
     );

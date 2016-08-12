@@ -110,6 +110,8 @@ div {
   /*min-height: 300px;*/
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+  animation: 500ms slideup;
 }
 
 .list-item {
@@ -126,26 +128,7 @@ div {
   font-size: 18px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-  /*animation-duration: 1s;
-  animation-name: fadein;*/
   animation: 500ms fadein;
-}
-
-/*@keyframes slidein {
-  from {
-    margin-left: 100%;
-    width: 100%;
-  }
-
-  to {
-    margin-left: 0%;
-    width: 100%;
-  }
-}*/
-
-@keyframes fadein {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 .list-item:hover {
@@ -173,5 +156,16 @@ div {
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-  animation: 500ms fadein;
+  /*animation: 500ms fadein;*/
+  animation: 500ms slideup;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideup {
+  from {bottom: -500px}
+  to {bottom: 90px}
 }
