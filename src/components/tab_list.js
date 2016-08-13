@@ -3,8 +3,28 @@ import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
 export class TabList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { scrollCount: 1 };
+  }
+
+  componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll, false);
+  }
+
+  handleScroll = () => {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
+      console.log('scrolled');
+      this.setState({ scrollCount:  this.state.scrollCount += 1 });
+    }
+  }
+
   renderTabs() {
-    return this.props.tabs.map((tab) => {
+    return this.props.tabs.slice(0,this.state.scrollCount*5).map((tab) => {
       const { id, name, artist, rating, url } = tab.$;
       return (
         <li key={id}

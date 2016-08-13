@@ -8,11 +8,11 @@ export class SearchBar extends Component {
     this.state = { search: ""};
   }
 
-  handleChange(e) {
+  handleChange = (e) => {
     this.setState({ search: e.target.value });
   }
 
-  handleSubmit(e) {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.fetchTabs(this.state.search);
   }
@@ -21,13 +21,13 @@ export class SearchBar extends Component {
     return (
       <div>
         <div className='page-title'>Search</div>
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleSubmit}>
           <input
             className="search-bar"
             type='text'
             placeholder="Enter artist or song name"
             value={this.state.search}
-            onChange={this.handleChange.bind(this)} />
+            onChange={this.handleChange} />
         </form>
       </div>
     );
