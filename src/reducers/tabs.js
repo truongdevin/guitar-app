@@ -1,6 +1,6 @@
 import { FETCH_TABS, FETCH_TAB } from "../actions/index";
 
-const INITIAL_STATE = { all: [], selected: null };
+const INITIAL_STATE = { all: null, selected: null };
 
 import { parseString } from 'xml2js';
 

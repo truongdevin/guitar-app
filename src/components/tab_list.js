@@ -41,7 +41,8 @@ export class TabList extends Component {
   }
 
   render() {
-    if (this.props.tabs.length === 0) {
+    console.log(this.props);
+    if (!this.props.tabs) {
       return <div/>
     }
     return (
