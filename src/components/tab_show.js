@@ -13,13 +13,28 @@ export class TabShow extends Component {
     return { __html };
   }
 
-  render() {
-    if (!this.props.artist || !this.props.artist[0].strArtistFanart) {
-      var img = `url('../imgs/default.png')`;
+  handleImage() {
+    const images = [];
+    const artist = this.props.artist;
+
+    if (!artist || !artist[0].strArtistFanart) {
+      return `url('../imgs/default.png')`;
     } else {
-      var img = `url('${this.props.artist[0].strArtistFanart}')`;
+      images.push(artist[0].strArtistFanart);
     }
 
+    if (artist[0].strArtistFanart2) {
+      images.push(artist[0].strArtistFanart2);
+    }
+
+    if (artist[0].strArtistFanart3) {
+      images.push(artist[0].strArtistFanart3);
+    }
+
+    return `url('${images[Math.floor(Math.random() * images.length)]}')`;
+  }
+
+  render() {
     if (!this.props.selected) {
       return <div>Loading...</div>;
     }
@@ -28,7 +43,7 @@ export class TabShow extends Component {
 
     return (
       <div>
-        <div className="img-container noselect" style={{ backgroundImage: img }}>
+        <div className="img-container noselect" style={{ backgroundImage: this.handleImage() }}>
           <div className="page-title">{name}</div>
           <div className="page-title">{artist}</div>
         </div>
