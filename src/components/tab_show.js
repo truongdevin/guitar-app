@@ -15,7 +15,7 @@ export class TabShow extends Component {
 
   render() {
     if (!this.props.artist || !this.props.artist[0].strArtistFanart) {
-      var img = `url('../imgs/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
+      var img = `url('../imgs/default.png')`;
     } else {
       var img = `url('${this.props.artist[0].strArtistFanart}')`;
     }
