@@ -18,7 +18,6 @@ export class TabList extends Component {
 
   handleScroll = () => {
     if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-      console.log('scrolled');
       this.setState({ scrollCount:  this.state.scrollCount += 1 });
     }
   }
@@ -41,7 +40,6 @@ export class TabList extends Component {
   }
 
   render() {
-    console.log(this.props);
     if (!this.props.tabs) {
       return <div/>
     }

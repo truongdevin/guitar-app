@@ -1,6 +1,7 @@
 import axios from 'axios';
 export const FETCH_TABS = "FETCH_TABS";
 export const FETCH_TAB = "FETCH_TAB";
+export const FETCH_ARTIST = "FETCH_ARTIST";
 
 
 export function fetchTabs(search) {
@@ -19,6 +20,16 @@ export function fetchTab(id) {
 
   return {
     type: FETCH_TAB,
+    payload: request
+  };
+}
+
+export function fetchArtist(name) {
+  const ROOT_URL = "http://www.theaudiodb.com/api/v1/json/1/search.php?s=";
+  const request = axios.get('https://crossorigin.me/'+ROOT_URL+name);
+
+  return {
+    type: FETCH_ARTIST,
     payload: request
   };
 }

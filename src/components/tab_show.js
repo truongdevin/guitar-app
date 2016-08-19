@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTab } from '../actions/index';
+import { fetchTab, fetchArtist } from '../actions/index';
 
 export class TabShow extends Component {
   componentWillMount() {
     this.props.fetchTab(this.props.params.id);
+    this.props.fetchArtist(this.props.location.state.artist);
   }
 
   parseHTML() {
@@ -13,11 +14,18 @@ export class TabShow extends Component {
   }
 
   render() {
-    const { name, artist } = this.props.location.state;
-    const img = `url('../imgs/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
+    if (!this.props.artist || !this.props.artist[0].strArtistFanart) {
+      var img = `url('../imgs/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
+    } else {
+      var img = `url('${this.props.artist[0].strArtistFanart}')`;
+    }
+
     if (!this.props.selected) {
       return <div>Loading...</div>;
     }
+
+    const { name, artist } = this.props.location.state;
+
     return (
       <div>
         <div className="img-container noselect" style={{ backgroundImage: img }}>
@@ -33,7 +41,10 @@ export class TabShow extends Component {
 }
 
 function mapStateToProps(state) {
-  return {selected: state.tabs.selected };
+  return {
+    selected: state.tabs.selected,
+    artist: state.tabs.artist
+  };
 }
 
-export default connect(mapStateToProps, { fetchTab })(TabShow);
+export default connect(mapStateToProps, { fetchTab, fetchArtist })(TabShow);
