@@ -3,9 +3,14 @@ import { connect } from 'react-redux';
 import { fetchTab, fetchArtist } from '../actions/index';
 
 export class TabShow extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { image: null };
+  }
   componentWillMount() {
     this.props.fetchTab(this.props.params.id);
-    this.props.fetchArtist(this.props.location.state.artist);
+    this.props.fetchArtist(this.props.location.state.artist)
+      .then(this.handleImage.bind(this));
   }
 
   parseHTML() {
@@ -18,7 +23,8 @@ export class TabShow extends Component {
     const artist = this.props.artist;
 
     if (!artist || !artist[0].strArtistFanart) {
-      return `url('../imgs/default.png')`;
+      this.setState({image: `url('../imgs/default.png')`});
+      return
     } else {
       images.push(artist[0].strArtistFanart);
     }
@@ -31,7 +37,8 @@ export class TabShow extends Component {
       images.push(artist[0].strArtistFanart3);
     }
 
-    return `url('${images[Math.floor(Math.random() * images.length)]}')`;
+    const rand = Math.floor(Math.random() * images.length);
+    this.setState({image: `url('${images[rand]}')`});
   }
 
   render() {
@@ -43,7 +50,7 @@ export class TabShow extends Component {
 
     return (
       <div>
-        <div className="img-container noselect" style={{ backgroundImage: this.handleImage() }}>
+        <div className="img-container noselect" style={{ backgroundImage: this.state.image }}>
           <div className="page-title">{name}</div>
           <div className="page-title">{artist}</div>
         </div>
