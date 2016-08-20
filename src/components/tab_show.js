@@ -26,7 +26,10 @@ export class TabShow extends Component {
     const artist = this.props.artist;
 
     if (!artist || !artist[0].strArtistFanart) {
-      this.setState({image: `url('../imgs/default.png')`});
+      this.setState({
+        image: `url('../imgs/default.png')`,
+        animation: '500ms forwards fadein'
+      });
       return
     } else {
       images.push(artist[0].strArtistFanart);
