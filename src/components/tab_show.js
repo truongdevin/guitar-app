@@ -5,7 +5,10 @@ import { fetchTab, fetchArtist } from '../actions/index';
 export class TabShow extends Component {
   constructor(props) {
     super(props);
-    this.state = { image: null };
+    this.state = {
+      image: null,
+      animation: null
+    };
   }
   componentWillMount() {
     this.props.fetchTab(this.props.params.id);
@@ -38,7 +41,14 @@ export class TabShow extends Component {
     }
 
     const rand = Math.floor(Math.random() * images.length);
-    this.setState({image: `url('${images[rand]}')`});
+    const image = new Image();
+    image.onload = () => {
+      this.setState({
+        image: `url(${image.src})`,
+        animation: '500ms forwards fadein'
+      });
+    }
+    image.src = `${images[rand]}`;
   }
 
   render() {
@@ -50,7 +60,12 @@ export class TabShow extends Component {
 
     return (
       <div>
-        <div className="img-container noselect" style={{ backgroundImage: this.state.image }}>
+        <div
+          className="img-container noselect"
+          style={{
+            backgroundImage: this.state.image,
+            animation: this.state.animation
+          }}>
           <div className="page-title">{name}</div>
           <div className="page-title">{artist}</div>
         </div>

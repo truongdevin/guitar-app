@@ -12,7 +12,7 @@ export default class TabIndex extends Component {
   render() {
     return (
       <div>
-        <div className="img-container noselect" style={this.divStyle}>
+        <div className="img-container fadein noselect" style={this.divStyle}>
           <SearchBar />
         </div>
         <TabList />

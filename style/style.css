@@ -81,7 +81,11 @@ div {
   -o-background-size: cover;
   background-size: cover;
 
-  animation: 500ms fadein;
+  opacity: 0;
+}
+
+.fadein {
+  animation: 500ms forwards fadein;
 }
 
 
