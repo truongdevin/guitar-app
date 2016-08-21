@@ -115,7 +115,7 @@ div {
   background-color: white;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
-  animation: 500ms slideup;
+  /*animation: 500ms slideup;*/
 }
 
 .list-item {
@@ -170,12 +170,34 @@ div {
   animation: 500ms slideup;
 }
 
+.slidedown {
+  animation: 250ms forwards slidedown;
+}
+
+.slideup {
+  animation: 500ms slideup;
+}
+
+.fadeout {
+  animation: 250ms forwards fadeout;
+}
+
 @keyframes fadein {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
 @keyframes slideup {
-  from {bottom: -500px}
+  from {bottom: -250px}
   to {bottom: 90px}
+}
+
+@keyframes slidedown {
+  from {bottom: 90px}
+  to {bottom: -250px}
 }

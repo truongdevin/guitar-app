@@ -40,14 +40,37 @@ export class TabList extends Component {
   }
 
   render() {
-    if (!this.props.tabs) {
-      return <div/>
+    if (this.props.tabs === null) {
+      return <div/>;
+    } else if (this.props.tabs === undefined) {
+      return (
+        <div className='fadeout'>
+          <ul className='list-container slidedown'>
+            <li className='list-item' />
+          </ul>
+        </div>
+      );
+    } else {
+      return (
+        <ul className="list-container slideup">
+          {this.renderTabs()}
+        </ul>
+      );
     }
-    return (
-      <ul className="list-container">
-        {this.renderTabs()}
-      </ul>
-    );
+    //
+    // if (this.props.tabs === undefined) {
+    //   return (
+    //     <ul className='list-container'>
+    //       <li className='list-item' />
+    //     </ul>
+    //   );
+    // }
+
+    // return (
+    //   <ul className="list-container">
+    //     {this.renderTabs()}
+    //   </ul>
+    // );
   }
 }
 
