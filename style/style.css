@@ -171,7 +171,7 @@ div {
 }
 
 .slidedown {
-  animation: 250ms forwards slidedown;
+  animation: 1000ms forwards slidedown;
 }
 
 .slideup {
@@ -179,7 +179,7 @@ div {
 }
 
 .fadeout {
-  animation: 250ms forwards fadeout;
+  animation: 500ms forwards fadeout;
 }
 
 @keyframes fadein {
@@ -198,6 +198,7 @@ div {
 }
 
 @keyframes slidedown {
-  from {bottom: 90px}
-  to {bottom: -250px}
+  0% {bottom: 90px}
+  50% {bottom: -250px}
+  100% {bottom: 90px}
 }
