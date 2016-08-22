@@ -44,11 +44,9 @@ export class TabList extends Component {
       return <div/>;
     } else if (this.props.tabs === undefined) {
       return (
-        <div className='fadeout'>
-          <ul className='list-container slidedown'>
-            <li className='list-item' />
-          </ul>
-        </div>
+        <ul className='list-container fadedown'>
+          <li className='list-item' />
+        </ul>
       );
     } else {
       return (

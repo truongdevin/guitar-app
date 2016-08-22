@@ -170,35 +170,35 @@ div {
   animation: 500ms slideup;
 }
 
-.slidedown {
-  animation: 1000ms forwards slidedown;
+.fadedown {
+  animation: 1000ms forwards fadedown;
 }
 
 .slideup {
   animation: 500ms slideup;
 }
 
-.fadeout {
+/*.fadeout {
   animation: 500ms forwards fadeout;
-}
+}*/
 
 @keyframes fadein {
   from { opacity: 0; }
   to { opacity: 1; }
 }
 
-@keyframes fadeout {
+/*@keyframes fadeout {
   from { opacity: 1; }
   to { opacity: 0; }
-}
+}*/
 
 @keyframes slideup {
   from {bottom: -250px}
   to {bottom: 90px}
 }
 
-@keyframes slidedown {
-  0% {bottom: 90px}
-  50% {bottom: -250px}
-  100% {bottom: 90px}
+@keyframes fadedown {
+  0% {bottom: 90px; opacity: 1;}
+  50% {bottom: -250px; opacity: 0;}
+  100% {bottom: 90px; opacity: 0;}
 }
