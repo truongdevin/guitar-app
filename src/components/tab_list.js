@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-export class TabList extends Component {
+export default class TabList extends Component {
   constructor(props) {
     super(props);
     this.state = { scrollCount: 1 };
@@ -55,25 +54,5 @@ export class TabList extends Component {
         </ul>
       );
     }
-    //
-    // if (this.props.tabs === undefined) {
-    //   return (
-    //     <ul className='list-container'>
-    //       <li className='list-item' />
-    //     </ul>
-    //   );
-    // }
-
-    // return (
-    //   <ul className="list-container">
-    //     {this.renderTabs()}
-    //   </ul>
-    // );
   }
 }
-
-function mapStateToProps(state) {
-  return { tabs: state.tabs.all };
-}
-
-export default connect(mapStateToProps)(TabList);

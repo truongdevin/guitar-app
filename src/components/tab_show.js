@@ -72,7 +72,7 @@ export class TabShow extends Component {
           <div className="page-title">{name}</div>
           <div className="page-title">{artist}</div>
         </div>
-        <div className='tab-container'>
+        <div className='tab-container slideup'>
           <div className="tabs" dangerouslySetInnerHTML={this.parseHTML()} />
         </div>
       </div>
