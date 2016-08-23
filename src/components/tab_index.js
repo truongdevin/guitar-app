@@ -6,7 +6,7 @@ import TabList from './tab_list';
 export class TabIndex extends Component {
   constructor(props) {
     super(props);
-    const img = `url('../imgs/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
+    const img = `url('./imgs/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
     this.divStyle = { backgroundImage: img };
   }
 

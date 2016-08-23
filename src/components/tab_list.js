@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
+import { hashHistory } from 'react-router';
 
 export default class TabList extends Component {
   constructor(props) {
@@ -27,7 +27,7 @@ export default class TabList extends Component {
       return (
         <li key={id}
           className='list-item'
-          onClick={() => browserHistory.push({
+          onClick={() => hashHistory.push({
             pathname: '/tabs/'+id,
             state: { name, artist }
           })}>

@@ -27,7 +27,7 @@ export class TabShow extends Component {
 
     if (!artist || !artist[0].strArtistFanart) {
       this.setState({
-        image: `url('../imgs/default.png')`,
+        image: `url('./imgs/default.png')`,
         animation: '500ms forwards fadein'
       });
       return
