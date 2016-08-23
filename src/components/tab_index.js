@@ -12,11 +12,11 @@ export class TabIndex extends Component {
 
   render() {
     if (this.props.tabs === null) {
-      var errorStyle = { opacity: "0" };
+      var errorStyle = { opacity: "0" , top: "-300px"};
     } else if (this.props.tabs === undefined) {
-      var errorStyle = { opacity: ".75" };
+      var errorStyle = { opacity: ".75" , top: "-100px"};
     } else {
-      var errorStyle = { opacity: "0" };
+      var errorStyle = { opacity: "0" , top: "-300px"};
     }
 
     return (

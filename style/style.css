@@ -182,12 +182,11 @@ div {
 
 .error {
   position: relative;
-  top: -100px;
   background-color: #0d0d0d;
   padding: 10px 20px;
   border-radius: 10px;
   color: white;
-  transition: opacity 500ms;
+  transition: opacity 500ms, top 500ms;
 }
 
 @keyframes fadein {
