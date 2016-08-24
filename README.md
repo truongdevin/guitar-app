@@ -1,4 +1,4 @@
-## [TabHaven](https://pictr-app.herokuapp.com/)
+## [TabHaven](https://truongdevin.github.io/sheet-music/)
 
 TabHaven is a frontend web application that fetches sheet music from other websites and returns them in one centralized location. It's built using React, Redux, and many Ajax requests.
 
