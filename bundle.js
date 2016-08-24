@@ -28970,7 +28970,7 @@
 	        _react2.default.createElement(
 	          'li',
 	          { onClick: function onClick() {
-	              return window.open('https://github.com/truongdevin/guitar-app', '_blank');
+	              return window.open('https://github.com/truongdevin/sheet-music', '_blank');
 	            } },
 	          'Github'
 	        )
