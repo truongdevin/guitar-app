@@ -30728,15 +30728,15 @@
 	        });
 	        return;
 	      } else {
-	        images.push(artist[0].strArtistFanart);
+	        images.push(artist[0].strArtistFanart.replace('http', 'https'));
 	      }
 	
 	      if (artist[0].strArtistFanart2) {
-	        images.push(artist[0].strArtistFanart2);
+	        images.push(artist[0].strArtistFanart2.replace('http', 'https'));
 	      }
 	
 	      if (artist[0].strArtistFanart3) {
-	        images.push(artist[0].strArtistFanart3);
+	        images.push(artist[0].strArtistFanart3.replace('http', 'https'));
 	      }
 	
 	      var rand = Math.floor(Math.random() * images.length);
