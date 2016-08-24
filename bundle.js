@@ -28965,7 +28965,7 @@
 	          { className: 'home', onClick: function onClick() {
 	              return _reactRouter.hashHistory.push('/');
 	            } },
-	          'MusicLand'
+	          'Tab Haven'
 	        ),
 	        _react2.default.createElement(
 	          'li',
