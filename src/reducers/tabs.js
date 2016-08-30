@@ -14,7 +14,7 @@ export default function(state=INITIAL_STATE, action) {
       return { ...state, selected: action.payload.data };
 
     case FETCH_ARTIST:
-      return { ...state, artist: action.payload.data.artists };
+      return { ...state, artist: action.payload.data };
 
     default:
       return state;

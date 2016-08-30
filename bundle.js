@@ -30695,6 +30695,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabShow).call(this, props));
 	
 	    _this.state = {
+	      tab: false,
 	      image: null,
 	      animation: null
 	    };
@@ -30704,7 +30705,11 @@
 	  _createClass(TabShow, [{
 	    key: 'componentWillMount',
 	    value: function componentWillMount() {
-	      this.props.fetchTab(this.props.params.id);
+	      var _this2 = this;
+	
+	      this.props.fetchTab(this.props.params.id).then(function () {
+	        return _this2.setState({ tab: true });
+	      });
 	      this.props.fetchArtist(this.props.location.state.artist).then(this.handleImage.bind(this));
 	    }
 	  }, {
@@ -30716,10 +30721,11 @@
 	  }, {
 	    key: 'handleImage',
 	    value: function handleImage() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      var images = [];
-	      var artist = this.props.artist;
+	      // const artist = this.props.artist.artists;
+	      var artist = this.props.artist ? this.props.artist.artists : false;
 	
 	      if (!artist || !artist[0].strArtistFanart) {
 	        this.setState({
@@ -30742,7 +30748,7 @@
 	      var rand = Math.floor(Math.random() * images.length);
 	      var image = new Image();
 	      image.onload = function () {
-	        _this2.setState({
+	        _this3.setState({
 	          image: 'url(' + image.src + ')',
 	          animation: '500ms forwards fadein'
 	        });
@@ -30752,7 +30758,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (!this.props.selected) {
+	      if (!this.state.tab) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
@@ -31650,7 +31656,7 @@
 	      return _extends({}, state, { selected: action.payload.data });
 	
 	    case _index.FETCH_ARTIST:
-	      return _extends({}, state, { artist: action.payload.data.artists });
+	      return _extends({}, state, { artist: action.payload.data });
 	
 	    default:
 	      return state;

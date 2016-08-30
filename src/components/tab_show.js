@@ -6,12 +6,14 @@ export class TabShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      tab: false,
       image: null,
       animation: null
     };
   }
   componentWillMount() {
-    this.props.fetchTab(this.props.params.id);
+    this.props.fetchTab(this.props.params.id)
+      .then(() => this.setState({ tab: true }));
     this.props.fetchArtist(this.props.location.state.artist)
       .then(this.handleImage.bind(this));
   }
@@ -23,7 +25,8 @@ export class TabShow extends Component {
 
   handleImage() {
     const images = [];
-    const artist = this.props.artist;
+    // const artist = this.props.artist.artists;
+    const artist = this.props.artist ? this.props.artist.artists : false;
 
     if (!artist || !artist[0].strArtistFanart) {
       this.setState({
@@ -55,7 +58,7 @@ export class TabShow extends Component {
   }
 
   render() {
-    if (!this.props.selected) {
+    if (!this.state.tab) {
       return <div>Loading...</div>;
     }
 
