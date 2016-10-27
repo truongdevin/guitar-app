@@ -23,16 +23,20 @@ export class TabIndex extends Component {
       <div>
         <div className="img-container fadein noselect" style={this.divStyle}>
           <div className='error' style={errorStyle}> No results found. Please try again. </div>
-          <SearchBar />
+          <div className='page-title'>Search</div>
+          <SearchBar instrument={this.props.instrument} />
         </div>
-        <TabList tabs={this.props.tabs}/>
+        <TabList tabs={this.props.tabs} />
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { tabs: state.tabs.all };
+  return {
+    tabs: state.tabs.all,
+    instrument: state.tabs.instrument
+  };
 }
 
 export default connect(mapStateToProps)(TabIndex);

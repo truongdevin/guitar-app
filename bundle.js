@@ -29053,7 +29053,12 @@
 	            { className: 'error', style: errorStyle },
 	            ' No results found. Please try again. '
 	          ),
-	          _react2.default.createElement(_search_bar2.default, null)
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-title' },
+	            'Search'
+	          ),
+	          _react2.default.createElement(_search_bar2.default, { instrument: this.props.instrument })
 	        ),
 	        _react2.default.createElement(_tab_list2.default, { tabs: this.props.tabs })
 	      );
@@ -29064,7 +29069,10 @@
 	}(_react.Component);
 	
 	function mapStateToProps(state) {
-	  return { tabs: state.tabs.all };
+	  return {
+	    tabs: state.tabs.all,
+	    instrument: state.tabs.instrument
+	  };
 	}
 	
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(TabIndex);
@@ -29115,6 +29123,46 @@
 	      _this.props.fetchTabs(_this.state.search);
 	    };
 	
+	    _this.handleInstrument = function (e) {
+	      e.preventDefault();
+	      _this.props.setInstrument(e.target.innerHTML);
+	    };
+	
+	    _this.renderInstrumentTabs = function () {
+	
+	      if (_this.props.instrument === "Guitar") {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'search-tab-flex', onClick: _this.handleInstrument },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'search-tab-item tab-selected' },
+	            'Guitar'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'search-tab-item' },
+	            'Piano'
+	          )
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'div',
+	          { className: 'search-tab-flex', onClick: _this.handleInstrument },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'search-tab-item' },
+	            'Guitar'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'search-tab-item tab-selected' },
+	            'Piano'
+	          )
+	        );
+	      }
+	    };
+	
 	    _this.state = { search: "" };
 	    return _this;
 	  }
@@ -29124,12 +29172,8 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'page-title' },
-	          'Search'
-	        ),
+	        { className: 'search-bar-container' },
+	        this.renderInstrumentTabs(),
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.handleSubmit },
@@ -29147,7 +29191,7 @@
 	  return SearchBar;
 	}(_react.Component);
 	
-	exports.default = (0, _reactRedux.connect)(null, { fetchTabs: _index.fetchTabs })(SearchBar);
+	exports.default = (0, _reactRedux.connect)(null, { fetchTabs: _index.fetchTabs, setInstrument: _index.setInstrument })(SearchBar);
 
 /***/ },
 /* 269 */
@@ -29158,10 +29202,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.FETCH_ARTIST = exports.FETCH_TAB = exports.FETCH_TABS = undefined;
+	exports.SET_INSTRUMENT = exports.FETCH_ARTIST = exports.FETCH_TAB = exports.FETCH_TABS = undefined;
 	exports.fetchTabs = fetchTabs;
 	exports.fetchTab = fetchTab;
 	exports.fetchArtist = fetchArtist;
+	exports.setInstrument = setInstrument;
 	
 	var _axios = __webpack_require__(270);
 	
@@ -29172,6 +29217,7 @@
 	var FETCH_TABS = exports.FETCH_TABS = "FETCH_TABS";
 	var FETCH_TAB = exports.FETCH_TAB = "FETCH_TAB";
 	var FETCH_ARTIST = exports.FETCH_ARTIST = "FETCH_ARTIST";
+	var SET_INSTRUMENT = exports.SET_INSTRUMENT = "SET_INSTRUMENT";
 	
 	function fetchTabs(search) {
 	  var ROOT_URL = "http://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";
@@ -29200,6 +29246,13 @@
 	  return {
 	    type: FETCH_ARTIST,
 	    payload: request
+	  };
+	}
+	
+	function setInstrument(instrument) {
+	  return {
+	    type: SET_INSTRUMENT,
+	    payload: instrument
 	  };
 	}
 
@@ -31658,6 +31711,9 @@
 	    case _index.FETCH_ARTIST:
 	      return _extends({}, state, { artist: action.payload.data });
 	
+	    case _index.SET_INSTRUMENT:
+	      return _extends({}, state, { instrument: action.payload });
+	
 	    default:
 	      return state;
 	  }
@@ -31667,7 +31723,7 @@
 	
 	var _xml2js = __webpack_require__(303);
 	
-	var INITIAL_STATE = { all: null, selected: null, artist: null };
+	var INITIAL_STATE = { all: null, selected: null, artist: null, instrument: "Guitar" };
 
 /***/ },
 /* 303 */

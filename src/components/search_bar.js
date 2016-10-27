@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchTabs } from '../actions/index';
+import { fetchTabs, setInstrument } from '../actions/index';
 
 export class SearchBar extends Component {
   constructor(props) {
@@ -17,10 +17,34 @@ export class SearchBar extends Component {
     this.props.fetchTabs(this.state.search);
   }
 
+  handleInstrument = (e) => {
+    e.preventDefault();
+    this.props.setInstrument(e.target.innerHTML);
+  }
+
+  renderInstrumentTabs = () => {
+
+    if (this.props.instrument === "Guitar") {
+      return (
+        <div className="search-tab-flex" onClick={this.handleInstrument}>
+          <div className="search-tab-item tab-selected">Guitar</div>
+          <div className="search-tab-item">Piano</div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="search-tab-flex" onClick={this.handleInstrument}>
+          <div className="search-tab-item">Guitar</div>
+          <div className="search-tab-item tab-selected">Piano</div>
+        </div>
+      );
+    }
+  }
+
   render() {
     return (
-      <div>
-        <div className='page-title'>Search</div>
+      <div className="search-bar-container">
+        {this.renderInstrumentTabs()}
         <form onSubmit={this.handleSubmit}>
           <input
             className="search-bar"
@@ -34,4 +58,4 @@ export class SearchBar extends Component {
   }
 }
 
-export default connect(null, { fetchTabs })(SearchBar);
+export default connect(null, { fetchTabs, setInstrument })(SearchBar);

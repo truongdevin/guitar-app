@@ -2,6 +2,7 @@ import axios from 'axios';
 export const FETCH_TABS = "FETCH_TABS";
 export const FETCH_TAB = "FETCH_TAB";
 export const FETCH_ARTIST = "FETCH_ARTIST";
+export const SET_INSTRUMENT = "SET_INSTRUMENT";
 
 
 export function fetchTabs(search) {
@@ -31,5 +32,12 @@ export function fetchArtist(name) {
   return {
     type: FETCH_ARTIST,
     payload: request
+  };
+}
+
+export function setInstrument(instrument) {
+  return {
+    type: SET_INSTRUMENT,
+    payload: instrument
   };
 }

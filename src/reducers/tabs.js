@@ -1,7 +1,7 @@
-import { FETCH_TABS, FETCH_TAB, FETCH_ARTIST } from "../actions/index";
+import { FETCH_TABS, FETCH_TAB, FETCH_ARTIST, SET_INSTRUMENT } from "../actions/index";
 import { parseString } from 'xml2js';
 
-const INITIAL_STATE = { all: null, selected: null, artist: null };
+const INITIAL_STATE = { all: null, selected: null, artist: null, instrument: "Guitar" };
 
 export default function(state=INITIAL_STATE, action) {
   switch(action.type) {
@@ -15,6 +15,9 @@ export default function(state=INITIAL_STATE, action) {
 
     case FETCH_ARTIST:
       return { ...state, artist: action.payload.data };
+
+    case SET_INSTRUMENT:
+      return { ...state, instrument: action.payload };
 
     default:
       return state;
