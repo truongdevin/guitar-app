@@ -29024,24 +29024,47 @@
 	  function TabIndex(props) {
 	    _classCallCheck(this, TabIndex);
 	
+	    // if (this.props.instrument === "Guitar") {
+	    //   var img = `url('./imgs/guitar/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
+	    // } else {
+	    //   var img = `url('./imgs/piano/piano${Math.floor((Math.random() * 3)+1)}.jpg')`;
+	    // }
+	    // this.divStyle = { backgroundImage: img };
+	    // this.state = { errorStyle: { opacity: "0" , top: "-300px"} };
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabIndex).call(this, props));
 	
-	    var img = 'url(\'./imgs/guitar' + Math.floor(Math.random() * 2 + 1) + '.jpg\')';
-	    _this.divStyle = { backgroundImage: img };
+	    _this.handleError = function () {
+	      if (_this.props.tabs === null) {
+	        _this.errorStyle = { opacity: "0", top: "-300px" };
+	      } else if (_this.props.tabs === undefined) {
+	        _this.errorStyle = { opacity: ".75", top: "-100px" };
+	      } else {
+	        _this.errorStyle = { opacity: "0", top: "-300px" };
+	      }
+	    };
+	
 	    return _this;
 	  }
 	
 	  _createClass(TabIndex, [{
+	    key: 'handleImage',
+	    value: function handleImage() {
+	      if (this.props.instrument === "Guitar") {
+	        var img = 'url(\'./imgs/guitar/guitar' + Math.floor(Math.random() * 2 + 1) + '.jpg\')';
+	      } else {
+	        var img = 'url(\'./imgs/piano/piano' + Math.floor(Math.random() * 3 + 1) + '.jpg\')';
+	      }
+	      this.divStyle = { backgroundImage: img };
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (this.props.tabs === null) {
-	        var errorStyle = { opacity: "0", top: "-300px" };
-	      } else if (this.props.tabs === undefined) {
-	        var errorStyle = { opacity: ".75", top: "-100px" };
-	      } else {
-	        var errorStyle = { opacity: "0", top: "-300px" };
+	      {
+	        this.handleError();
 	      }
-	
+	      {
+	        this.handleImage();
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
@@ -29050,7 +29073,7 @@
 	          { className: 'img-container fadein noselect', style: this.divStyle },
 	          _react2.default.createElement(
 	            'div',
-	            { className: 'error', style: errorStyle },
+	            { className: 'error', style: this.errorStyle },
 	            ' No results found. Please try again. '
 	          ),
 	          _react2.default.createElement(
