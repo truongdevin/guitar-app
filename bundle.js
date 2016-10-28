@@ -29021,19 +29021,18 @@
 	var TabIndex = exports.TabIndex = function (_Component) {
 	  _inherits(TabIndex, _Component);
 	
-	  function TabIndex(props) {
+	  function TabIndex() {
+	    var _Object$getPrototypeO;
+	
+	    var _temp, _this, _ret;
+	
 	    _classCallCheck(this, TabIndex);
 	
-	    // if (this.props.instrument === "Guitar") {
-	    //   var img = `url('./imgs/guitar/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
-	    // } else {
-	    //   var img = `url('./imgs/piano/piano${Math.floor((Math.random() * 3)+1)}.jpg')`;
-	    // }
-	    // this.divStyle = { backgroundImage: img };
-	    // this.state = { errorStyle: { opacity: "0" , top: "-300px"} };
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabIndex).call(this, props));
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
 	
-	    _this.handleError = function () {
+	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(TabIndex)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleError = function () {
 	      if (_this.props.tabs === null) {
 	        _this.errorStyle = { opacity: "0", top: "-300px" };
 	      } else if (_this.props.tabs === undefined) {
@@ -29041,36 +29040,27 @@
 	      } else {
 	        _this.errorStyle = { opacity: "0", top: "-300px" };
 	      }
-	    };
-	
-	    return _this;
+	    }, _this.handleImage = function () {
+	      // window.setTimeout(() => {
+	      //   console.log('poop');
+	      //   return { backgroundImage: this.props.img };
+	      // }, 1000);
+	      return { backgroundImage: _this.props.img };
+	    }, _temp), _possibleConstructorReturn(_this, _ret);
 	  }
 	
 	  _createClass(TabIndex, [{
-	    key: 'handleImage',
-	    value: function handleImage() {
-	      if (this.props.instrument === "Guitar") {
-	        var img = 'url(\'./imgs/guitar/guitar' + Math.floor(Math.random() * 2 + 1) + '.jpg\')';
-	      } else {
-	        var img = 'url(\'./imgs/piano/piano' + Math.floor(Math.random() * 3 + 1) + '.jpg\')';
-	      }
-	      this.divStyle = { backgroundImage: img };
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      {
 	        this.handleError();
-	      }
-	      {
-	        this.handleImage();
 	      }
 	      return _react2.default.createElement(
 	        'div',
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'img-container fadein noselect', style: this.divStyle },
+	          { className: 'img-container fadein noselect', style: this.handleImage() },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'error', style: this.errorStyle },
@@ -29094,7 +29084,8 @@
 	function mapStateToProps(state) {
 	  return {
 	    tabs: state.tabs.all,
-	    instrument: state.tabs.instrument
+	    instrument: state.tabs.instrument,
+	    img: state.tabs.img
 	  };
 	}
 	
@@ -31735,7 +31726,12 @@
 	      return _extends({}, state, { artist: action.payload.data });
 	
 	    case _index.SET_INSTRUMENT:
-	      return _extends({}, state, { instrument: action.payload });
+	      if (action.payload === "Guitar") {
+	        var img = "url('./imgs/guitar/guitar" + Math.floor(Math.random() * 2 + 1) + ".jpg')";
+	      } else {
+	        var img = "url('./imgs/piano/piano" + Math.floor(Math.random() * 3 + 1) + ".jpg')";
+	      }
+	      return _extends({}, state, { instrument: action.payload, img: img });
 	
 	    default:
 	      return state;
@@ -31746,7 +31742,13 @@
 	
 	var _xml2js = __webpack_require__(303);
 	
-	var INITIAL_STATE = { all: null, selected: null, artist: null, instrument: "Guitar" };
+	var INITIAL_STATE = {
+	  all: null,
+	  selected: null,
+	  artist: null,
+	  instrument: "Guitar",
+	  img: "url('./imgs/guitar/guitar1.jpg')"
+	};
 
 /***/ },
 /* 303 */

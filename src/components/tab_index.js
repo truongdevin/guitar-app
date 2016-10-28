@@ -4,25 +4,6 @@ import SearchBar from './search_bar';
 import TabList from './tab_list';
 
 export class TabIndex extends Component {
-  constructor(props) {
-    super(props);
-    // if (this.props.instrument === "Guitar") {
-    //   var img = `url('./imgs/guitar/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
-    // } else {
-    //   var img = `url('./imgs/piano/piano${Math.floor((Math.random() * 3)+1)}.jpg')`;
-    // }
-    // this.divStyle = { backgroundImage: img };
-    // this.state = { errorStyle: { opacity: "0" , top: "-300px"} };
-  }
-
-  handleImage() {
-    if (this.props.instrument === "Guitar") {
-      var img = `url('./imgs/guitar/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
-    } else {
-      var img = `url('./imgs/piano/piano${Math.floor((Math.random() * 3)+1)}.jpg')`;
-    }
-    this.divStyle = { backgroundImage: img };
-  }
 
   handleError = () => {
     if (this.props.tabs === null) {
@@ -34,12 +15,19 @@ export class TabIndex extends Component {
     }
   }
 
+  handleImage = () => {
+    // window.setTimeout(() => {
+    //   console.log('poop');
+    //   return { backgroundImage: this.props.img };
+    // }, 1000);
+    return { backgroundImage: this.props.img }
+  }
+
   render() {
     {this.handleError()}
-    {this.handleImage()}
     return (
       <div>
-        <div className="img-container fadein noselect" style={this.divStyle}>
+        <div className="img-container fadein noselect" style={this.handleImage()}>
           <div className='error' style={this.errorStyle}> No results found. Please try again. </div>
           <div className='page-title'>Search</div>
           <SearchBar instrument={this.props.instrument} />
@@ -53,7 +41,8 @@ export class TabIndex extends Component {
 function mapStateToProps(state) {
   return {
     tabs: state.tabs.all,
-    instrument: state.tabs.instrument
+    instrument: state.tabs.instrument,
+    img: state.tabs.img
   };
 }
 
