@@ -29176,7 +29176,10 @@
 	
 	    _this.handleInstrument = function (e) {
 	      e.preventDefault();
-	      _this.props.setInstrument(e.target.innerHTML);
+	      var instrument = e.target.innerHTML;
+	      if (["Guitar", "Piano"].includes(instrument)) {
+	        _this.props.setInstrument(instrument);
+	      }
 	    };
 	
 	    _this.renderInstrumentTabs = function () {

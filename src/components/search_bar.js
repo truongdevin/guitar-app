@@ -27,7 +27,10 @@ export class SearchBar extends Component {
 
   handleInstrument = (e) => {
     e.preventDefault();
-    this.props.setInstrument(e.target.innerHTML);
+    const instrument = e.target.innerHTML
+    if (["Guitar", "Piano"].includes(instrument)) {
+      this.props.setInstrument(instrument);
+    }
   }
 
   renderInstrumentTabs = () => {
