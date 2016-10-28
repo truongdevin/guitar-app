@@ -29042,6 +29042,7 @@
 	      }
 	
 	      // preload the image into cache before fading them in
+	      // only setState and trigger rerender after image is cached
 	      var image = new Image();
 	      image.onload = function () {
 	        _this.setState({
@@ -29101,7 +29102,7 @@
 	          ),
 	          _react2.default.createElement(_search_bar2.default, { instrument: this.props.instrument })
 	        ),
-	        _react2.default.createElement(_tab_list2.default, { tabs: this.props.tabs })
+	        _react2.default.createElement(_tab_list2.default, { tabs: this.props.tabs, instrument: this.props.instrument })
 	      );
 	    }
 	  }]);
@@ -29162,7 +29163,15 @@
 	
 	    _this.handleSubmit = function (e) {
 	      e.preventDefault();
-	      _this.props.fetchTabs(_this.state.search);
+	      if (_this.state.search === "") return;
+	
+	      if (_this.props.instrument === "Guitar") {
+	        _this.props.fetchGuitar(_this.state.search);
+	      }
+	
+	      if (_this.props.instrument === "Piano") {
+	        _this.props.fetchPiano(_this.state.search);
+	      }
 	    };
 	
 	    _this.handleInstrument = function (e) {
@@ -29171,7 +29180,6 @@
 	    };
 	
 	    _this.renderInstrumentTabs = function () {
-	
 	      if (_this.props.instrument === "Guitar") {
 	        return _react2.default.createElement(
 	          'div',
@@ -29187,7 +29195,9 @@
 	            'Piano'
 	          )
 	        );
-	      } else {
+	      }
+	
+	      if (_this.props.instrument === "Piano") {
 	        return _react2.default.createElement(
 	          'div',
 	          { className: 'search-tab-flex', onClick: _this.handleInstrument },
@@ -29233,7 +29243,7 @@
 	  return SearchBar;
 	}(_react.Component);
 	
-	exports.default = (0, _reactRedux.connect)(null, { fetchTabs: _index.fetchTabs, setInstrument: _index.setInstrument })(SearchBar);
+	exports.default = (0, _reactRedux.connect)(null, { fetchGuitar: _index.fetchGuitar, fetchPiano: _index.fetchPiano, setInstrument: _index.setInstrument })(SearchBar);
 
 /***/ },
 /* 269 */
@@ -29244,9 +29254,10 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SET_INSTRUMENT = exports.FETCH_ARTIST = exports.FETCH_TAB = exports.FETCH_TABS = undefined;
-	exports.fetchTabs = fetchTabs;
+	exports.SET_INSTRUMENT = exports.FETCH_ARTIST = exports.FETCH_TAB = exports.FETCH_PIANO = exports.FETCH_GUITAR = undefined;
+	exports.fetchGuitar = fetchGuitar;
 	exports.fetchTab = fetchTab;
+	exports.fetchPiano = fetchPiano;
 	exports.fetchArtist = fetchArtist;
 	exports.setInstrument = setInstrument;
 	
@@ -29256,17 +29267,18 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var FETCH_TABS = exports.FETCH_TABS = "FETCH_TABS";
+	var FETCH_GUITAR = exports.FETCH_GUITAR = "FETCH_GUITAR";
+	var FETCH_PIANO = exports.FETCH_PIANO = "FETCH_PIANO";
 	var FETCH_TAB = exports.FETCH_TAB = "FETCH_TAB";
 	var FETCH_ARTIST = exports.FETCH_ARTIST = "FETCH_ARTIST";
 	var SET_INSTRUMENT = exports.SET_INSTRUMENT = "SET_INSTRUMENT";
 	
-	function fetchTabs(search) {
+	function fetchGuitar(search) {
 	  var ROOT_URL = "http://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";
 	  var request = _axios2.default.get('https://crossorigin.me/' + ROOT_URL + search);
 	
 	  return {
-	    type: FETCH_TABS,
+	    type: FETCH_GUITAR,
 	    payload: request
 	  };
 	}
@@ -29277,6 +29289,16 @@
 	
 	  return {
 	    type: FETCH_TAB,
+	    payload: request
+	  };
+	}
+	
+	function fetchPiano(search) {
+	  var ROOT_URL = "http://api.musescore.com/services/rest/score.json&oauth_consumer_key=wx3Sss3Wm2ChzqFNiyEPQy5R2ffVgRqZ&part=0&text=";
+	  var request = _axios2.default.get('https://crossorigin.me/' + ROOT_URL + search);
+	
+	  return {
+	    type: FETCH_PIANO,
 	    payload: request
 	  };
 	}
@@ -30655,6 +30677,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -30690,8 +30714,19 @@
 	      window.removeEventListener("scroll", this.handleScroll, false);
 	    }
 	  }, {
-	    key: 'renderTabs',
-	    value: function renderTabs() {
+	    key: 'renderMusicList',
+	    value: function renderMusicList() {
+	      if (this.props.instrument === "Guitar") {
+	        return this.renderGuitarList();
+	      }
+	
+	      if (this.props.instrument === "Piano") {
+	        return this.renderPianoList();
+	      }
+	    }
+	  }, {
+	    key: 'renderGuitarList',
+	    value: function renderGuitarList() {
 	      return this.props.tabs.slice(0, this.state.scrollCount * 5).map(function (tab) {
 	        var _tab$$ = tab.$;
 	        var id = _tab$$.id;
@@ -30727,6 +30762,39 @@
 	      });
 	    }
 	  }, {
+	    key: 'renderPianoList',
+	    value: function renderPianoList() {
+	      return this.props.tabs.slice(0, this.state.scrollCount * 5).map(function (tab) {
+	        var id = tab.id;
+	        var title = tab.title;
+	        var permalink = tab.permalink;
+	        var view_count = tab.view_count;
+	
+	        return _react2.default.createElement(
+	          'li',
+	          { key: id,
+	            className: 'list-item',
+	            onClick: function onClick() {
+	              return _reactRouter.hashHistory.push({
+	                pathname: '/tabs/' + id,
+	                state: _defineProperty({ title: title }, 'title', title)
+	              });
+	            } },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            title
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            ' Views: ',
+	            view_count
+	          )
+	        );
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      if (this.props.tabs === null) {
@@ -30741,7 +30809,7 @@
 	        return _react2.default.createElement(
 	          'ul',
 	          { className: 'list-container slideup' },
-	          this.renderTabs()
+	          this.renderMusicList()
 	        );
 	      }
 	    }
@@ -31740,7 +31808,7 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
-	    case _index.FETCH_TABS:
+	    case _index.FETCH_GUITAR:
 	      var jsonResult;
 	      (0, _xml2js.parseString)(action.payload.data, function (err, result) {
 	        return jsonResult = result.results.result;
@@ -31750,11 +31818,15 @@
 	    case _index.FETCH_TAB:
 	      return _extends({}, state, { selected: action.payload.data });
 	
+	    case _index.FETCH_PIANO:
+	      if (action.payload.data.length === 0) action.payload.data = undefined;
+	      return _extends({}, state, { all: action.payload.data });
+	
 	    case _index.FETCH_ARTIST:
 	      return _extends({}, state, { artist: action.payload.data });
 	
 	    case _index.SET_INSTRUMENT:
-	      return _extends({}, state, { instrument: action.payload });
+	      return _extends({}, state, { instrument: action.payload, all: null });
 	
 	    default:
 	      return state;

@@ -21,7 +21,17 @@ export default class TabList extends Component {
     }
   }
 
-  renderTabs() {
+  renderMusicList() {
+    if (this.props.instrument === "Guitar") {
+      return this.renderGuitarList();
+    }
+
+    if (this.props.instrument === "Piano") {
+      return this.renderPianoList();
+    }
+  }
+
+  renderGuitarList() {
     return this.props.tabs.slice(0,this.state.scrollCount*5).map((tab) => {
       const { id, name, artist, rating, url } = tab.$;
       return (
@@ -35,8 +45,26 @@ export default class TabList extends Component {
           <div> Rating: {rating}</div>
         </li>
       );
-    })
+    });
   }
+
+  renderPianoList() {
+    return this.props.tabs.slice(0,this.state.scrollCount*5).map((tab) => {
+      const { id, title, permalink, view_count } = tab;
+      return (
+        <li key={id}
+          className='list-item'
+          onClick={() => hashHistory.push({
+            pathname: '/tabs/'+id,
+            state: { title, title }
+          })}>
+          <div>{title}</div>
+          <div> Views: {view_count}</div>
+        </li>
+      );
+    });
+  }
+
 
   render() {
     if (this.props.tabs === null) {
@@ -50,7 +78,7 @@ export default class TabList extends Component {
     } else {
       return (
         <ul className="list-container slideup">
-          {this.renderTabs()}
+          {this.renderMusicList()}
         </ul>
       );
     }

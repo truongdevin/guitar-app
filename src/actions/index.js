@@ -1,16 +1,17 @@
 import axios from 'axios';
-export const FETCH_TABS = "FETCH_TABS";
+export const FETCH_GUITAR = "FETCH_GUITAR";
+export const FETCH_PIANO = "FETCH_PIANO";
 export const FETCH_TAB = "FETCH_TAB";
 export const FETCH_ARTIST = "FETCH_ARTIST";
 export const SET_INSTRUMENT = "SET_INSTRUMENT";
 
 
-export function fetchTabs(search) {
+export function fetchGuitar(search) {
   const ROOT_URL = "http://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";
   const request = axios.get('https://crossorigin.me/'+ROOT_URL+search);
 
   return {
-    type: FETCH_TABS,
+    type: FETCH_GUITAR,
     payload: request
   };
 }
@@ -21,6 +22,16 @@ export function fetchTab(id) {
 
   return {
     type: FETCH_TAB,
+    payload: request
+  };
+}
+
+export function fetchPiano(search) {
+  const ROOT_URL = "http://api.musescore.com/services/rest/score.json&oauth_consumer_key=wx3Sss3Wm2ChzqFNiyEPQy5R2ffVgRqZ&part=0&text=";
+  const request = axios.get('https://crossorigin.me/'+ROOT_URL+search);
+
+  return {
+    type: FETCH_PIANO,
     payload: request
   };
 }

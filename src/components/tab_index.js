@@ -33,6 +33,7 @@ export class TabIndex extends Component {
     }
 
     // preload the image into cache before fading them in
+    // only setState and trigger rerender after image is cached
     const image = new Image();
     image.onload = () => {
       this.setState({
@@ -60,7 +61,7 @@ export class TabIndex extends Component {
           <div className='page-title'>Search</div>
           <SearchBar instrument={this.props.instrument} />
         </div>
-        <TabList tabs={this.props.tabs} />
+        <TabList tabs={this.props.tabs} instrument={this.props.instrument} />
       </div>
     );
   }
