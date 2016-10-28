@@ -4,6 +4,13 @@ import SearchBar from './search_bar';
 import TabList from './tab_list';
 
 export class TabIndex extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      backgroundImage: "url('./imgs/guitar/guitar1.jpg')",
+      animation: '500ms forwards fadein'
+    };
+  }
 
   handleError = () => {
     if (this.props.tabs === null) {
@@ -15,19 +22,40 @@ export class TabIndex extends Component {
     }
   }
 
+  // reset animation before each render or else animation won't play
+  componentWillReceiveProps() {
+    this.setState({ animation: null });
+  }
+
   handleImage = () => {
-    // window.setTimeout(() => {
-    //   console.log('poop');
-    //   return { backgroundImage: this.props.img };
-    // }, 1000);
-    return { backgroundImage: this.props.img }
+    if (this.state.backgroundImage.includes(this.props.instrument.toLowerCase())) {
+      return;
+    }
+
+    // preload the image into cache before fading them in
+    const image = new Image();
+    image.onload = () => {
+      this.setState({
+        backgroundImage: `url(${image.src})`,
+        animation: '500ms forwards fadein'
+      });
+    }
+
+    if (this.props.instrument === "Guitar") {
+      image.src = `./imgs/guitar/guitar${Math.floor((Math.random() * 2)+1)}.jpg`;
+    }
+
+    if (this.props.instrument === "Piano") {
+      image.src = `./imgs/piano/piano${Math.floor((Math.random() * 3)+1)}.jpg`;
+    }
   }
 
   render() {
+    {this.handleImage()}
     {this.handleError()}
     return (
       <div>
-        <div className="img-container fadein noselect" style={this.handleImage()}>
+        <div className="img-container noselect" style={this.state}>
           <div className='error' style={this.errorStyle}> No results found. Please try again. </div>
           <div className='page-title'>Search</div>
           <SearchBar instrument={this.props.instrument} />

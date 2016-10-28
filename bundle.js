@@ -29021,18 +29021,12 @@
 	var TabIndex = exports.TabIndex = function (_Component) {
 	  _inherits(TabIndex, _Component);
 	
-	  function TabIndex() {
-	    var _Object$getPrototypeO;
-	
-	    var _temp, _this, _ret;
-	
+	  function TabIndex(props) {
 	    _classCallCheck(this, TabIndex);
 	
-	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	      args[_key] = arguments[_key];
-	    }
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabIndex).call(this, props));
 	
-	    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(TabIndex)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.handleError = function () {
+	    _this.handleError = function () {
 	      if (_this.props.tabs === null) {
 	        _this.errorStyle = { opacity: "0", top: "-300px" };
 	      } else if (_this.props.tabs === undefined) {
@@ -29040,18 +29034,52 @@
 	      } else {
 	        _this.errorStyle = { opacity: "0", top: "-300px" };
 	      }
-	    }, _this.handleImage = function () {
-	      // window.setTimeout(() => {
-	      //   console.log('poop');
-	      //   return { backgroundImage: this.props.img };
-	      // }, 1000);
-	      return { backgroundImage: _this.props.img };
-	    }, _temp), _possibleConstructorReturn(_this, _ret);
+	    };
+	
+	    _this.handleImage = function () {
+	      if (_this.state.backgroundImage.includes(_this.props.instrument.toLowerCase())) {
+	        return;
+	      }
+	
+	      // preload the image into cache before fading them in
+	      var image = new Image();
+	      image.onload = function () {
+	        _this.setState({
+	          backgroundImage: 'url(' + image.src + ')',
+	          animation: '500ms forwards fadein'
+	        });
+	      };
+	
+	      if (_this.props.instrument === "Guitar") {
+	        image.src = './imgs/guitar/guitar' + Math.floor(Math.random() * 2 + 1) + '.jpg';
+	      }
+	
+	      if (_this.props.instrument === "Piano") {
+	        image.src = './imgs/piano/piano' + Math.floor(Math.random() * 3 + 1) + '.jpg';
+	      }
+	    };
+	
+	    _this.state = {
+	      backgroundImage: "url('./imgs/guitar/guitar1.jpg')",
+	      animation: '500ms forwards fadein'
+	    };
+	    return _this;
 	  }
 	
 	  _createClass(TabIndex, [{
+	    key: 'componentWillReceiveProps',
+	
+	
+	    // reset animation before each render or else animation won't play
+	    value: function componentWillReceiveProps() {
+	      this.setState({ animation: null });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      {
+	        this.handleImage();
+	      }
 	      {
 	        this.handleError();
 	      }
@@ -29060,7 +29088,7 @@
 	        null,
 	        _react2.default.createElement(
 	          'div',
-	          { className: 'img-container fadein noselect', style: this.handleImage() },
+	          { className: 'img-container noselect', style: this.state },
 	          _react2.default.createElement(
 	            'div',
 	            { className: 'error', style: this.errorStyle },
@@ -31726,12 +31754,7 @@
 	      return _extends({}, state, { artist: action.payload.data });
 	
 	    case _index.SET_INSTRUMENT:
-	      if (action.payload === "Guitar") {
-	        var img = "url('./imgs/guitar/guitar" + Math.floor(Math.random() * 2 + 1) + ".jpg')";
-	      } else {
-	        var img = "url('./imgs/piano/piano" + Math.floor(Math.random() * 3 + 1) + ".jpg')";
-	      }
-	      return _extends({}, state, { instrument: action.payload, img: img });
+	      return _extends({}, state, { instrument: action.payload });
 	
 	    default:
 	      return state;
@@ -31746,8 +31769,7 @@
 	  all: null,
 	  selected: null,
 	  artist: null,
-	  instrument: "Guitar",
-	  img: "url('./imgs/guitar/guitar1.jpg')"
+	  instrument: "Guitar"
 	};
 
 /***/ },

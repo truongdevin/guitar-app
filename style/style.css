@@ -82,7 +82,7 @@ div {
   background-size: cover;
 
   /*this ensures the title appears at the same time as the image*/
-  opacity: 0;
+  /*opacity: 0;*/
 
 }
 

@@ -5,8 +5,7 @@ const INITIAL_STATE = {
   all: null,
   selected: null,
   artist: null,
-  instrument: "Guitar",
-  img: "url('./imgs/guitar/guitar1.jpg')"
+  instrument: "Guitar"
 };
 
 export default function(state=INITIAL_STATE, action) {
@@ -23,12 +22,7 @@ export default function(state=INITIAL_STATE, action) {
       return { ...state, artist: action.payload.data };
 
     case SET_INSTRUMENT:
-      if (action.payload === "Guitar") {
-        var img = `url('./imgs/guitar/guitar${Math.floor((Math.random() * 2)+1)}.jpg')`;
-      } else {
-        var img = `url('./imgs/piano/piano${Math.floor((Math.random() * 3)+1)}.jpg')`;
-      }
-      return { ...state, instrument: action.payload, img: img };
+      return { ...state, instrument: action.payload };
 
     default:
       return state;
