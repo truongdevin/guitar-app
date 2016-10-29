@@ -19,7 +19,8 @@ export class PianoShow extends Component {
   }
 
   parseHTML() {
-    const __html = this.props.selected.html;
+    const iframeTag = this.props.selected.html;
+    const __html = iframeTag.slice(0,8) + 'scrolling="no" ' + iframeTag.slice(8);
     return { __html };
   }
 
