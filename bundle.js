@@ -29167,9 +29167,7 @@
 	
 	      if (_this.props.instrument === "Guitar") {
 	        _this.props.fetchGuitar(_this.state.search);
-	      }
-	
-	      if (_this.props.instrument === "Piano") {
+	      } else if (_this.props.instrument === "Piano") {
 	        _this.props.fetchPiano(_this.state.search);
 	      }
 	    };
@@ -29182,40 +29180,11 @@
 	      }
 	    };
 	
-	    _this.renderInstrumentTabs = function () {
-	      if (_this.props.instrument === "Guitar") {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'search-tab-flex', onClick: _this.handleInstrument },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'search-tab-item tab-selected' },
-	            'Guitar'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'search-tab-item' },
-	            'Piano'
-	          )
-	        );
-	      }
-	
-	      if (_this.props.instrument === "Piano") {
-	        return _react2.default.createElement(
-	          'div',
-	          { className: 'search-tab-flex', onClick: _this.handleInstrument },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'search-tab-item' },
-	            'Guitar'
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'search-tab-item tab-selected' },
-	            'Piano'
-	          )
-	        );
-	      }
+	    _this.handleTabClass = function () {
+	      var select = "search-tab-item tab-selected";
+	      var noSelect = "search-tab-item";
+	      _this.guitarClass = _this.props.instrument === "Guitar" ? select : noSelect;
+	      _this.pianoClass = _this.props.instrument === "Piano" ? select : noSelect;
 	    };
 	
 	    _this.state = { search: "" };
@@ -29225,10 +29194,26 @@
 	  _createClass(SearchBar, [{
 	    key: 'render',
 	    value: function render() {
+	      {
+	        this.handleTabClass();
+	      }
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'search-bar-container' },
-	        this.renderInstrumentTabs(),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'search-tab-flex', onClick: this.handleInstrument },
+	          _react2.default.createElement(
+	            'div',
+	            { className: this.guitarClass },
+	            'Guitar'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: this.pianoClass },
+	            'Piano'
+	          )
+	        ),
 	        _react2.default.createElement(
 	          'form',
 	          { onSubmit: this.handleSubmit },

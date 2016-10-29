@@ -18,9 +18,7 @@ export class SearchBar extends Component {
 
     if (this.props.instrument === "Guitar") {
       this.props.fetchGuitar(this.state.search);
-    }
-
-    if (this.props.instrument === "Piano") {
+    } else if (this.props.instrument === "Piano") {
       this.props.fetchPiano(this.state.search)
     }
   }
@@ -33,30 +31,22 @@ export class SearchBar extends Component {
     }
   }
 
-  renderInstrumentTabs = () => {
-    if (this.props.instrument === "Guitar") {
-      return (
-        <div className="search-tab-flex" onClick={this.handleInstrument}>
-          <div className="search-tab-item tab-selected">Guitar</div>
-          <div className="search-tab-item">Piano</div>
-        </div>
-      );
-    }
-
-    if (this.props.instrument === "Piano") {
-      return (
-        <div className="search-tab-flex" onClick={this.handleInstrument}>
-          <div className="search-tab-item">Guitar</div>
-          <div className="search-tab-item tab-selected">Piano</div>
-        </div>
-      );
-    }
+  handleTabClass = () => {
+    const select = "search-tab-item tab-selected";
+    const noSelect = "search-tab-item"
+    this.guitarClass = this.props.instrument === "Guitar" ? select : noSelect;
+    this.pianoClass = this.props.instrument === "Piano" ? select : noSelect;
   }
 
   render() {
+    {this.handleTabClass()}
     return (
       <div className="search-bar-container">
-        {this.renderInstrumentTabs()}
+        <div className="search-tab-flex" onClick={this.handleInstrument}>
+          <div className={this.guitarClass}>Guitar</div>
+          <div className={this.pianoClass}>Piano</div>
+        </div>
+
         <form onSubmit={this.handleSubmit}>
           <input
             className="search-bar"
