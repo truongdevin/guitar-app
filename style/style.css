@@ -107,7 +107,8 @@ div {
   background-color: darkgrey;
   color: white;
   font-size: 18px;
-  border: 1px solid black;
+  /*border-top-right-radius: 10px;
+  border-top-left-radius: 10px;*/
 }
 
 .search-tab-item:hover {
