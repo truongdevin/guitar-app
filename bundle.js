@@ -28847,22 +28847,21 @@
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	var _tab_index = __webpack_require__(267);
+	var _music_index = __webpack_require__(471);
 	
-	var _tab_index2 = _interopRequireDefault(_tab_index);
+	var _music_index2 = _interopRequireDefault(_music_index);
 	
-	var _tab_show = __webpack_require__(293);
+	var _guitar_show = __webpack_require__(472);
 	
-	var _tab_show2 = _interopRequireDefault(_tab_show);
+	var _guitar_show2 = _interopRequireDefault(_guitar_show);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createElement(
 	  _reactRouter.Route,
 	  { path: '/', component: _app2.default },
-	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _tab_index2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/tabs', component: _tab_index2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/tabs/:id', component: _tab_show2.default })
+	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _music_index2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/guitar/:id', component: _guitar_show2.default })
 	);
 
 /***/ },
@@ -28984,143 +28983,7 @@
 	exports.default = NavBar;
 
 /***/ },
-/* 267 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.TabIndex = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(173);
-	
-	var _search_bar = __webpack_require__(268);
-	
-	var _search_bar2 = _interopRequireDefault(_search_bar);
-	
-	var _tab_list = __webpack_require__(292);
-	
-	var _tab_list2 = _interopRequireDefault(_tab_list);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var TabIndex = exports.TabIndex = function (_Component) {
-	  _inherits(TabIndex, _Component);
-	
-	  function TabIndex(props) {
-	    _classCallCheck(this, TabIndex);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabIndex).call(this, props));
-	
-	    _this.handleError = function () {
-	      if (_this.props.tabs === null) {
-	        _this.errorStyle = { opacity: "0", top: "-300px" };
-	      } else if (_this.props.tabs === undefined) {
-	        _this.errorStyle = { opacity: ".75", top: "-100px" };
-	      } else {
-	        _this.errorStyle = { opacity: "0", top: "-300px" };
-	      }
-	    };
-	
-	    _this.handleImage = function () {
-	      if (_this.state.backgroundImage.includes(_this.props.instrument.toLowerCase())) {
-	        return;
-	      }
-	
-	      // preload the image into cache before fading them in
-	      // only setState and trigger rerender after image is cached
-	      var image = new Image();
-	      image.onload = function () {
-	        _this.setState({
-	          backgroundImage: 'url(' + image.src + ')',
-	          animation: '500ms forwards fadein'
-	        });
-	      };
-	
-	      if (_this.props.instrument === "Guitar") {
-	        image.src = './imgs/guitar/guitar' + Math.floor(Math.random() * 2 + 1) + '.jpg';
-	      }
-	
-	      if (_this.props.instrument === "Piano") {
-	        image.src = './imgs/piano/piano' + Math.floor(Math.random() * 3 + 1) + '.jpg';
-	      }
-	    };
-	
-	    _this.state = {
-	      backgroundImage: "url('./imgs/guitar/guitar1.jpg')",
-	      animation: '500ms forwards fadein'
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(TabIndex, [{
-	    key: 'componentWillReceiveProps',
-	
-	
-	    // reset animation before each render or else animation won't play
-	    value: function componentWillReceiveProps() {
-	      this.setState({ animation: null });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      {
-	        this.handleImage();
-	      }
-	      {
-	        this.handleError();
-	      }
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'img-container noselect', style: this.state },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'error', style: this.errorStyle },
-	            ' No results found. Please try again. '
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'page-title' },
-	            'Search'
-	          ),
-	          _react2.default.createElement(_search_bar2.default, { instrument: this.props.instrument })
-	        ),
-	        _react2.default.createElement(_tab_list2.default, { tabs: this.props.tabs, instrument: this.props.instrument })
-	      );
-	    }
-	  }]);
-	
-	  return TabIndex;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return {
-	    tabs: state.tabs.all,
-	    instrument: state.tabs.instrument,
-	    img: state.tabs.img
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(TabIndex);
-
-/***/ },
+/* 267 */,
 /* 268 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -30646,326 +30509,8 @@
 
 
 /***/ },
-/* 292 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRouter = __webpack_require__(201);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var TabList = function (_Component) {
-	  _inherits(TabList, _Component);
-	
-	  function TabList(props) {
-	    _classCallCheck(this, TabList);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabList).call(this, props));
-	
-	    _this.handleScroll = function () {
-	      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-	        _this.setState({ scrollCount: _this.state.scrollCount += 1 });
-	      }
-	    };
-	
-	    _this.state = { scrollCount: 1 };
-	    return _this;
-	  }
-	
-	  _createClass(TabList, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      window.addEventListener("scroll", this.handleScroll);
-	    }
-	  }, {
-	    key: 'componentWillUnmount',
-	    value: function componentWillUnmount() {
-	      window.removeEventListener("scroll", this.handleScroll, false);
-	    }
-	  }, {
-	    key: 'renderMusicList',
-	    value: function renderMusicList() {
-	      if (this.props.instrument === "Guitar") {
-	        return this.renderGuitarList();
-	      }
-	
-	      if (this.props.instrument === "Piano") {
-	        return this.renderPianoList();
-	      }
-	    }
-	  }, {
-	    key: 'renderGuitarList',
-	    value: function renderGuitarList() {
-	      return this.props.tabs.slice(0, this.state.scrollCount * 5).map(function (tab) {
-	        var _tab$$ = tab.$;
-	        var id = _tab$$.id;
-	        var name = _tab$$.name;
-	        var artist = _tab$$.artist;
-	        var rating = _tab$$.rating;
-	        var url = _tab$$.url;
-	
-	        return _react2.default.createElement(
-	          'li',
-	          { key: id,
-	            className: 'list-item',
-	            onClick: function onClick() {
-	              return _reactRouter.hashHistory.push({
-	                pathname: '/tabs/' + id,
-	                state: { name: name, artist: artist }
-	              });
-	            } },
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            name,
-	            ' - ',
-	            artist
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            ' Rating: ',
-	            rating
-	          )
-	        );
-	      });
-	    }
-	  }, {
-	    key: 'renderPianoList',
-	    value: function renderPianoList() {
-	      return this.props.tabs.slice(0, this.state.scrollCount * 5).map(function (tab) {
-	        var id = tab.id;
-	        var title = tab.title;
-	        var permalink = tab.permalink;
-	        var view_count = tab.view_count;
-	
-	        return _react2.default.createElement(
-	          'li',
-	          { key: id,
-	            className: 'list-item',
-	            onClick: function onClick() {
-	              return _reactRouter.hashHistory.push({
-	                pathname: '/tabs/' + id,
-	                state: _defineProperty({ title: title }, 'title', title)
-	              });
-	            } },
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            title
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            null,
-	            ' Views: ',
-	            view_count
-	          )
-	        );
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (this.props.tabs === null) {
-	        return _react2.default.createElement('div', null);
-	      } else if (this.props.tabs === undefined) {
-	        return _react2.default.createElement(
-	          'ul',
-	          { className: 'list-container fadedown' },
-	          _react2.default.createElement('li', { className: 'list-item' })
-	        );
-	      } else {
-	        return _react2.default.createElement(
-	          'ul',
-	          { className: 'list-container slideup' },
-	          this.renderMusicList()
-	        );
-	      }
-	    }
-	  }]);
-	
-	  return TabList;
-	}(_react.Component);
-	
-	exports.default = TabList;
-
-/***/ },
-/* 293 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.TabShow = undefined;
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(173);
-	
-	var _index = __webpack_require__(269);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var TabShow = exports.TabShow = function (_Component) {
-	  _inherits(TabShow, _Component);
-	
-	  function TabShow(props) {
-	    _classCallCheck(this, TabShow);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TabShow).call(this, props));
-	
-	    _this.state = {
-	      tab: false,
-	      image: null,
-	      animation: null
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(TabShow, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var _this2 = this;
-	
-	      this.props.fetchTab(this.props.params.id).then(function () {
-	        return _this2.setState({ tab: true });
-	      });
-	      this.props.fetchArtist(this.props.location.state.artist).then(this.handleImage.bind(this));
-	    }
-	  }, {
-	    key: 'parseHTML',
-	    value: function parseHTML() {
-	      var __html = this.props.selected.replace(/\[ch\]|\[\/ch\]/g, '');
-	      return { __html: __html };
-	    }
-	  }, {
-	    key: 'handleImage',
-	    value: function handleImage() {
-	      var _this3 = this;
-	
-	      var images = [];
-	      // const artist = this.props.artist.artists;
-	      var artist = this.props.artist ? this.props.artist.artists : false;
-	
-	      if (!artist || !artist[0].strArtistFanart) {
-	        this.setState({
-	          image: 'url(\'./imgs/default.png\')',
-	          animation: '500ms forwards fadein'
-	        });
-	        return;
-	      } else {
-	        images.push(artist[0].strArtistFanart.replace('http', 'https'));
-	      }
-	
-	      if (artist[0].strArtistFanart2) {
-	        images.push(artist[0].strArtistFanart2.replace('http', 'https'));
-	      }
-	
-	      if (artist[0].strArtistFanart3) {
-	        images.push(artist[0].strArtistFanart3.replace('http', 'https'));
-	      }
-	
-	      var rand = Math.floor(Math.random() * images.length);
-	      var image = new Image();
-	      image.onload = function () {
-	        _this3.setState({
-	          image: 'url(' + image.src + ')',
-	          animation: '500ms forwards fadein'
-	        });
-	      };
-	      image.src = '' + images[rand];
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      if (!this.state.tab) {
-	        return _react2.default.createElement(
-	          'div',
-	          null,
-	          'Loading...'
-	        );
-	      }
-	
-	      var _props$location$state = this.props.location.state;
-	      var name = _props$location$state.name;
-	      var artist = _props$location$state.artist;
-	
-	
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          {
-	            className: 'img-container noselect',
-	            style: {
-	              backgroundImage: this.state.image,
-	              animation: this.state.animation
-	            } },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'page-title' },
-	            name
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'page-title' },
-	            artist
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'tab-container slideup' },
-	          _react2.default.createElement('div', { className: 'tabs', dangerouslySetInnerHTML: this.parseHTML() })
-	        )
-	      );
-	    }
-	  }]);
-	
-	  return TabShow;
-	}(_react.Component);
-	
-	function mapStateToProps(state) {
-	  return {
-	    selected: state.tabs.selected,
-	    artist: state.tabs.artist
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchTab: _index.fetchTab, fetchArtist: _index.fetchArtist })(TabShow);
-
-/***/ },
+/* 292 */,
+/* 293 */,
 /* 294 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -44638,6 +44183,463 @@
 	  delete immediateIds[id];
 	};
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(470).setImmediate, __webpack_require__(470).clearImmediate))
+
+/***/ },
+/* 471 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.MusicIndex = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _search_bar = __webpack_require__(268);
+	
+	var _search_bar2 = _interopRequireDefault(_search_bar);
+	
+	var _music_list = __webpack_require__(473);
+	
+	var _music_list2 = _interopRequireDefault(_music_list);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MusicIndex = exports.MusicIndex = function (_Component) {
+	  _inherits(MusicIndex, _Component);
+	
+	  function MusicIndex(props) {
+	    _classCallCheck(this, MusicIndex);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MusicIndex).call(this, props));
+	
+	    _this.handleError = function () {
+	      if (_this.props.tabs === null) {
+	        _this.errorStyle = { opacity: "0", top: "-300px" };
+	      } else if (_this.props.tabs === undefined) {
+	        _this.errorStyle = { opacity: ".75", top: "-100px" };
+	      } else {
+	        _this.errorStyle = { opacity: "0", top: "-300px" };
+	      }
+	    };
+	
+	    _this.handleImage = function () {
+	      if (_this.state.backgroundImage.includes(_this.props.instrument.toLowerCase())) {
+	        return;
+	      }
+	
+	      // preload the image into cache before fading them in
+	      // only setState and trigger rerender after image is cached
+	      var image = new Image();
+	      image.onload = function () {
+	        _this.setState({
+	          backgroundImage: 'url(' + image.src + ')',
+	          animation: '500ms forwards fadein'
+	        });
+	      };
+	
+	      if (_this.props.instrument === "Guitar") {
+	        image.src = './imgs/guitar/guitar' + Math.floor(Math.random() * 2 + 1) + '.jpg';
+	      }
+	
+	      if (_this.props.instrument === "Piano") {
+	        image.src = './imgs/piano/piano' + Math.floor(Math.random() * 3 + 1) + '.jpg';
+	      }
+	    };
+	
+	    _this.state = {
+	      backgroundImage: "url('./imgs/guitar/guitar1.jpg')",
+	      animation: '500ms forwards fadein'
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(MusicIndex, [{
+	    key: 'componentWillReceiveProps',
+	
+	
+	    // reset animation before each render or else animation won't play
+	    value: function componentWillReceiveProps() {
+	      this.setState({ animation: null });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      {
+	        this.handleImage();
+	      }
+	      {
+	        this.handleError();
+	      }
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'img-container noselect', style: this.state },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'error', style: this.errorStyle },
+	            ' No results found. Please try again. '
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-title' },
+	            'Search'
+	          ),
+	          _react2.default.createElement(_search_bar2.default, { instrument: this.props.instrument })
+	        ),
+	        _react2.default.createElement(_music_list2.default, { tabs: this.props.tabs, instrument: this.props.instrument })
+	      );
+	    }
+	  }]);
+	
+	  return MusicIndex;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return {
+	    tabs: state.tabs.all,
+	    instrument: state.tabs.instrument,
+	    img: state.tabs.img
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(MusicIndex);
+
+/***/ },
+/* 472 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.GuitarShow = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _index = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var GuitarShow = exports.GuitarShow = function (_Component) {
+	  _inherits(GuitarShow, _Component);
+	
+	  function GuitarShow(props) {
+	    _classCallCheck(this, GuitarShow);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GuitarShow).call(this, props));
+	
+	    _this.state = {
+	      tab: false,
+	      image: null,
+	      animation: null
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(GuitarShow, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      this.props.fetchTab(this.props.params.id).then(function () {
+	        return _this2.setState({ tab: true });
+	      });
+	      this.props.fetchArtist(this.props.location.state.artist).then(this.handleImage.bind(this));
+	    }
+	  }, {
+	    key: 'parseHTML',
+	    value: function parseHTML() {
+	      var __html = this.props.selected.replace(/\[ch\]|\[\/ch\]/g, '');
+	      return { __html: __html };
+	    }
+	  }, {
+	    key: 'handleImage',
+	    value: function handleImage() {
+	      var _this3 = this;
+	
+	      var images = [];
+	      // const artist = this.props.artist.artists;
+	      var artist = this.props.artist ? this.props.artist.artists : false;
+	
+	      if (!artist || !artist[0].strArtistFanart) {
+	        this.setState({
+	          image: 'url(\'./imgs/default.png\')',
+	          animation: '500ms forwards fadein'
+	        });
+	        return;
+	      } else {
+	        images.push(artist[0].strArtistFanart.replace('http', 'https'));
+	      }
+	
+	      if (artist[0].strArtistFanart2) {
+	        images.push(artist[0].strArtistFanart2.replace('http', 'https'));
+	      }
+	
+	      if (artist[0].strArtistFanart3) {
+	        images.push(artist[0].strArtistFanart3.replace('http', 'https'));
+	      }
+	
+	      var rand = Math.floor(Math.random() * images.length);
+	      var image = new Image();
+	      image.onload = function () {
+	        _this3.setState({
+	          image: 'url(' + image.src + ')',
+	          animation: '500ms forwards fadein'
+	        });
+	      };
+	      image.src = '' + images[rand];
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (!this.state.tab) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Loading...'
+	        );
+	      }
+	
+	      var _props$location$state = this.props.location.state;
+	      var name = _props$location$state.name;
+	      var artist = _props$location$state.artist;
+	
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          {
+	            className: 'img-container noselect',
+	            style: {
+	              backgroundImage: this.state.image,
+	              animation: this.state.animation
+	            } },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-title' },
+	            name
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-title' },
+	            artist
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'tab-container slideup' },
+	          _react2.default.createElement('div', { className: 'tabs', dangerouslySetInnerHTML: this.parseHTML() })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return GuitarShow;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return {
+	    selected: state.tabs.selected,
+	    artist: state.tabs.artist
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchTab: _index.fetchTab, fetchArtist: _index.fetchArtist })(GuitarShow);
+
+/***/ },
+/* 473 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRouter = __webpack_require__(201);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var MusicList = function (_Component) {
+	  _inherits(MusicList, _Component);
+	
+	  function MusicList(props) {
+	    _classCallCheck(this, MusicList);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(MusicList).call(this, props));
+	
+	    _this.handleScroll = function () {
+	      if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+	        _this.setState({ scrollCount: _this.state.scrollCount += 1 });
+	      }
+	    };
+	
+	    _this.state = { scrollCount: 1 };
+	    return _this;
+	  }
+	
+	  _createClass(MusicList, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      window.addEventListener("scroll", this.handleScroll);
+	    }
+	  }, {
+	    key: 'componentWillUnmount',
+	    value: function componentWillUnmount() {
+	      window.removeEventListener("scroll", this.handleScroll, false);
+	    }
+	  }, {
+	    key: 'renderMusicList',
+	    value: function renderMusicList() {
+	      if (this.props.instrument === "Guitar") {
+	        return this.renderGuitarList();
+	      }
+	
+	      if (this.props.instrument === "Piano") {
+	        return this.renderPianoList();
+	      }
+	    }
+	  }, {
+	    key: 'renderGuitarList',
+	    value: function renderGuitarList() {
+	      return this.props.tabs.slice(0, this.state.scrollCount * 5).map(function (tab) {
+	        var _tab$$ = tab.$;
+	        var id = _tab$$.id;
+	        var name = _tab$$.name;
+	        var artist = _tab$$.artist;
+	        var rating = _tab$$.rating;
+	        var url = _tab$$.url;
+	
+	        return _react2.default.createElement(
+	          'li',
+	          { key: id,
+	            className: 'list-item',
+	            onClick: function onClick() {
+	              return _reactRouter.hashHistory.push({
+	                pathname: '/guitar/' + id,
+	                state: { name: name, artist: artist }
+	              });
+	            } },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            name,
+	            ' - ',
+	            artist
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            ' Rating: ',
+	            rating
+	          )
+	        );
+	      });
+	    }
+	  }, {
+	    key: 'renderPianoList',
+	    value: function renderPianoList() {
+	      return this.props.tabs.slice(0, this.state.scrollCount * 5).map(function (tab) {
+	        var id = tab.id;
+	        var title = tab.title;
+	        var permalink = tab.permalink;
+	        var view_count = tab.view_count;
+	
+	        return _react2.default.createElement(
+	          'li',
+	          { key: id,
+	            className: 'list-item',
+	            onClick: function onClick() {
+	              return _reactRouter.hashHistory.push({
+	                pathname: '/guitar/' + id,
+	                state: _defineProperty({ title: title }, 'title', title)
+	              });
+	            } },
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            title
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            null,
+	            ' Views: ',
+	            view_count
+	          )
+	        );
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (this.props.tabs === null) {
+	        return _react2.default.createElement('div', null);
+	      } else if (this.props.tabs === undefined) {
+	        return _react2.default.createElement(
+	          'ul',
+	          { className: 'list-container fadedown' },
+	          _react2.default.createElement('li', { className: 'list-item' })
+	        );
+	      } else {
+	        return _react2.default.createElement(
+	          'ul',
+	          { className: 'list-container slideup' },
+	          this.renderMusicList()
+	        );
+	      }
+	    }
+	  }]);
+	
+	  return MusicList;
+	}(_react.Component);
+	
+	exports.default = MusicList;
 
 /***/ }
 /******/ ]);
