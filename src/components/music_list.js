@@ -55,8 +55,8 @@ export default class MusicList extends Component {
         <li key={id}
           className='list-item'
           onClick={() => hashHistory.push({
-            pathname: '/guitar/'+id,
-            state: { title, title }
+            pathname: '/piano/'+id,
+            state: { title }
           })}>
           <div>{title}</div>
           <div> Views: {view_count}</div>

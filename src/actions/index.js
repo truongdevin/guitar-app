@@ -1,7 +1,8 @@
 import axios from 'axios';
 export const FETCH_GUITAR = "FETCH_GUITAR";
 export const FETCH_PIANO = "FETCH_PIANO";
-export const FETCH_TAB = "FETCH_TAB";
+export const FETCH_GUITAR_SHEET = "FETCH_GUITAR_SHEET";
+export const FETCH_PIANO_SHEET = "FETCH_PIANO_SHEET";
 export const FETCH_ARTIST = "FETCH_ARTIST";
 export const SET_INSTRUMENT = "SET_INSTRUMENT";
 
@@ -16,12 +17,12 @@ export function fetchGuitar(search) {
   };
 }
 
-export function fetchTab(id) {
+export function fetchGuitarSheet(id) {
   const ROOT_URL = "http://app.ultimate-guitar.com/iphone/tab.php?id=";
   const request = axios.get('https://crossorigin.me/'+ROOT_URL+id);
 
   return {
-    type: FETCH_TAB,
+    type: FETCH_GUITAR_SHEET,
     payload: request
   };
 }
@@ -32,6 +33,16 @@ export function fetchPiano(search) {
 
   return {
     type: FETCH_PIANO,
+    payload: request
+  };
+}
+
+export function fetchPianoSheet(id) {
+  const ROOT_URL = "http://musescore.com/oembed/endpoint?url=https://musescore.com/score/";
+  const request = axios.get('https://crossorigin.me/'+ROOT_URL+id+'&maxheight=700');
+
+  return {
+    type: FETCH_PIANO_SHEET,
     payload: request
   };
 }

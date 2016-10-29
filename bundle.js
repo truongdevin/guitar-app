@@ -28855,13 +28855,18 @@
 	
 	var _guitar_show2 = _interopRequireDefault(_guitar_show);
 	
+	var _piano_show = __webpack_require__(474);
+	
+	var _piano_show2 = _interopRequireDefault(_piano_show);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = _react2.default.createElement(
 	  _reactRouter.Route,
 	  { path: '/', component: _app2.default },
 	  _react2.default.createElement(_reactRouter.IndexRoute, { component: _music_index2.default }),
-	  _react2.default.createElement(_reactRouter.Route, { path: '/guitar/:id', component: _guitar_show2.default })
+	  _react2.default.createElement(_reactRouter.Route, { path: '/guitar/:id', component: _guitar_show2.default }),
+	  _react2.default.createElement(_reactRouter.Route, { path: '/piano/:id', component: _piano_show2.default })
 	);
 
 /***/ },
@@ -29038,6 +29043,8 @@
 	    _this.handleInstrument = function (e) {
 	      e.preventDefault();
 	      var instrument = e.target.innerHTML;
+	      if (instrument === _this.props.instrument) return;
+	
 	      if (["Guitar", "Piano"].includes(instrument)) {
 	        _this.props.setInstrument(instrument);
 	      }
@@ -29105,10 +29112,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.SET_INSTRUMENT = exports.FETCH_ARTIST = exports.FETCH_TAB = exports.FETCH_PIANO = exports.FETCH_GUITAR = undefined;
+	exports.SET_INSTRUMENT = exports.FETCH_ARTIST = exports.FETCH_PIANO_SHEET = exports.FETCH_GUITAR_SHEET = exports.FETCH_PIANO = exports.FETCH_GUITAR = undefined;
 	exports.fetchGuitar = fetchGuitar;
-	exports.fetchTab = fetchTab;
+	exports.fetchGuitarSheet = fetchGuitarSheet;
 	exports.fetchPiano = fetchPiano;
+	exports.fetchPianoSheet = fetchPianoSheet;
 	exports.fetchArtist = fetchArtist;
 	exports.setInstrument = setInstrument;
 	
@@ -29120,7 +29128,8 @@
 	
 	var FETCH_GUITAR = exports.FETCH_GUITAR = "FETCH_GUITAR";
 	var FETCH_PIANO = exports.FETCH_PIANO = "FETCH_PIANO";
-	var FETCH_TAB = exports.FETCH_TAB = "FETCH_TAB";
+	var FETCH_GUITAR_SHEET = exports.FETCH_GUITAR_SHEET = "FETCH_GUITAR_SHEET";
+	var FETCH_PIANO_SHEET = exports.FETCH_PIANO_SHEET = "FETCH_PIANO_SHEET";
 	var FETCH_ARTIST = exports.FETCH_ARTIST = "FETCH_ARTIST";
 	var SET_INSTRUMENT = exports.SET_INSTRUMENT = "SET_INSTRUMENT";
 	
@@ -29134,12 +29143,12 @@
 	  };
 	}
 	
-	function fetchTab(id) {
+	function fetchGuitarSheet(id) {
 	  var ROOT_URL = "http://app.ultimate-guitar.com/iphone/tab.php?id=";
 	  var request = _axios2.default.get('https://crossorigin.me/' + ROOT_URL + id);
 	
 	  return {
-	    type: FETCH_TAB,
+	    type: FETCH_GUITAR_SHEET,
 	    payload: request
 	  };
 	}
@@ -29150,6 +29159,16 @@
 	
 	  return {
 	    type: FETCH_PIANO,
+	    payload: request
+	  };
+	}
+	
+	function fetchPianoSheet(id) {
+	  var ROOT_URL = "http://musescore.com/oembed/endpoint?url=https://musescore.com/score/";
+	  var request = _axios2.default.get('https://crossorigin.me/' + ROOT_URL + id + '&maxheight=700');
+	
+	  return {
+	    type: FETCH_PIANO_SHEET,
 	    payload: request
 	  };
 	}
@@ -31341,6 +31360,7 @@
 	  var action = arguments[1];
 	
 	  switch (action.type) {
+	
 	    case _index.FETCH_GUITAR:
 	      var jsonResult;
 	      (0, _xml2js.parseString)(action.payload.data, function (err, result) {
@@ -31348,12 +31368,15 @@
 	      });
 	      return _extends({}, state, { all: jsonResult });
 	
-	    case _index.FETCH_TAB:
+	    case _index.FETCH_GUITAR_SHEET:
 	      return _extends({}, state, { selected: action.payload.data });
 	
 	    case _index.FETCH_PIANO:
 	      if (action.payload.data.length === 0) action.payload.data = undefined;
 	      return _extends({}, state, { all: action.payload.data });
+	
+	    case _index.FETCH_PIANO_SHEET:
+	      return _extends({}, state, { selected: action.payload.data });
 	
 	    case _index.FETCH_ARTIST:
 	      return _extends({}, state, { artist: action.payload.data });
@@ -44359,7 +44382,7 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(GuitarShow).call(this, props));
 	
 	    _this.state = {
-	      tab: false,
+	      loaded: false,
 	      image: null,
 	      animation: null
 	    };
@@ -44371,8 +44394,8 @@
 	    value: function componentWillMount() {
 	      var _this2 = this;
 	
-	      this.props.fetchTab(this.props.params.id).then(function () {
-	        return _this2.setState({ tab: true });
+	      this.props.fetchGuitarSheet(this.props.params.id).then(function () {
+	        return _this2.setState({ loaded: true });
 	      });
 	      this.props.fetchArtist(this.props.location.state.artist).then(this.handleImage.bind(this));
 	    }
@@ -44422,7 +44445,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      if (!this.state.tab) {
+	      if (!this.state.loaded) {
 	        return _react2.default.createElement(
 	          'div',
 	          null,
@@ -44476,7 +44499,7 @@
 	  };
 	}
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchTab: _index.fetchTab, fetchArtist: _index.fetchArtist })(GuitarShow);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchGuitarSheet: _index.fetchGuitarSheet, fetchArtist: _index.fetchArtist })(GuitarShow);
 
 /***/ },
 /* 473 */
@@ -44497,8 +44520,6 @@
 	var _reactRouter = __webpack_require__(201);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -44597,8 +44618,8 @@
 	            className: 'list-item',
 	            onClick: function onClick() {
 	              return _reactRouter.hashHistory.push({
-	                pathname: '/guitar/' + id,
-	                state: _defineProperty({ title: title }, 'title', title)
+	                pathname: '/piano/' + id,
+	                state: { title: title }
 	              });
 	            } },
 	          _react2.default.createElement(
@@ -44640,6 +44661,156 @@
 	}(_react.Component);
 	
 	exports.default = MusicList;
+
+/***/ },
+/* 474 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.PianoShow = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(173);
+	
+	var _index = __webpack_require__(269);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PianoShow = exports.PianoShow = function (_Component) {
+	  _inherits(PianoShow, _Component);
+	
+	  function PianoShow(props) {
+	    _classCallCheck(this, PianoShow);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(PianoShow).call(this, props));
+	
+	    _this.state = {
+	      loaded: false,
+	      image: null,
+	      animation: null
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(PianoShow, [{
+	    key: 'componentWillMount',
+	    value: function componentWillMount() {
+	      var _this2 = this;
+	
+	      this.props.fetchPianoSheet(this.props.params.id).then(function () {
+	        return _this2.setState({ loaded: true });
+	      });
+	      this.props.fetchArtist(this.props.location.state.title.split("-")[0]).then(this.handleImage.bind(this));
+	    }
+	  }, {
+	    key: 'parseHTML',
+	    value: function parseHTML() {
+	      var __html = this.props.selected.html;
+	      return { __html: __html };
+	    }
+	  }, {
+	    key: 'handleImage',
+	    value: function handleImage() {
+	      var _this3 = this;
+	
+	      var images = [];
+	      // const artist = this.props.artist.artists;
+	      var artist = this.props.artist ? this.props.artist.artists : false;
+	
+	      if (!artist || !artist[0].strArtistFanart) {
+	        this.setState({
+	          image: 'url(\'./imgs/default.png\')',
+	          animation: '500ms forwards fadein'
+	        });
+	        return;
+	      } else {
+	        images.push(artist[0].strArtistFanart.replace('http', 'https'));
+	      }
+	
+	      if (artist[0].strArtistFanart2) {
+	        images.push(artist[0].strArtistFanart2.replace('http', 'https'));
+	      }
+	
+	      if (artist[0].strArtistFanart3) {
+	        images.push(artist[0].strArtistFanart3.replace('http', 'https'));
+	      }
+	
+	      var rand = Math.floor(Math.random() * images.length);
+	      var image = new Image();
+	      image.onload = function () {
+	        _this3.setState({
+	          image: 'url(' + image.src + ')',
+	          animation: '500ms forwards fadein'
+	        });
+	      };
+	      image.src = '' + images[rand];
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      if (!this.state.loaded) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
+	          'Loading...'
+	        );
+	      }
+	
+	      var title = this.props.location.state.title;
+	
+	
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'div',
+	          {
+	            className: 'img-container noselect',
+	            style: {
+	              backgroundImage: this.state.image,
+	              animation: this.state.animation
+	            } },
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'page-title' },
+	            title
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'tab-container slideup' },
+	          _react2.default.createElement('div', { className: 'tabs', dangerouslySetInnerHTML: this.parseHTML() })
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return PianoShow;
+	}(_react.Component);
+	
+	function mapStateToProps(state) {
+	  return {
+	    selected: state.tabs.selected,
+	    artist: state.tabs.artist
+	  };
+	}
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, { fetchPianoSheet: _index.fetchPianoSheet, fetchArtist: _index.fetchArtist })(PianoShow);
 
 /***/ }
 /******/ ]);

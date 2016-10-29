@@ -26,6 +26,8 @@ export class SearchBar extends Component {
   handleInstrument = (e) => {
     e.preventDefault();
     const instrument = e.target.innerHTML
+    if (instrument === this.props.instrument) return;
+    
     if (["Guitar", "Piano"].includes(instrument)) {
       this.props.setInstrument(instrument);
     }

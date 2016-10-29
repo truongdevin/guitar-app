@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchGuitarSheet, fetchArtist } from '../actions/index';
+import { fetchPianoSheet, fetchArtist } from '../actions/index';
 
-export class GuitarShow extends Component {
+export class PianoShow extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,14 +12,14 @@ export class GuitarShow extends Component {
     };
   }
   componentWillMount() {
-    this.props.fetchGuitarSheet(this.props.params.id)
+    this.props.fetchPianoSheet(this.props.params.id)
       .then(() => this.setState({ loaded: true }));
-    this.props.fetchArtist(this.props.location.state.artist)
+    this.props.fetchArtist(this.props.location.state.title.split("-")[0])
       .then(this.handleImage.bind(this));
   }
 
   parseHTML() {
-    let __html = this.props.selected.replace(/\[ch\]|\[\/ch\]/g, '');
+    const __html = this.props.selected.html;
     return { __html };
   }
 
@@ -62,7 +62,7 @@ export class GuitarShow extends Component {
       return <div>Loading...</div>;
     }
 
-    const { name, artist } = this.props.location.state;
+    const { title } = this.props.location.state;
 
     return (
       <div>
@@ -72,8 +72,7 @@ export class GuitarShow extends Component {
             backgroundImage: this.state.image,
             animation: this.state.animation
           }}>
-          <div className="page-title">{name}</div>
-          <div className="page-title">{artist}</div>
+          <div className="page-title">{ title }</div>
         </div>
         <div className='tab-container slideup'>
           <div className="tabs" dangerouslySetInnerHTML={this.parseHTML()} />
@@ -90,4 +89,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchGuitarSheet, fetchArtist })(GuitarShow);
+export default connect(mapStateToProps, { fetchPianoSheet, fetchArtist })(PianoShow);
