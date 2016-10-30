@@ -6,10 +6,12 @@ export const FETCH_PIANO_SHEET = "FETCH_PIANO_SHEET";
 export const FETCH_ARTIST = "FETCH_ARTIST";
 export const SET_INSTRUMENT = "SET_INSTRUMENT";
 
+const CORS_REQUIRED = false;
+const CORS_PROXY = CORS_REQUIRED ? "https://crossorigin.me/" : "";
 
 export function fetchGuitar(search) {
   const ROOT_URL = "http://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";
-  const request = axios.get('https://crossorigin.me/'+ROOT_URL+search);
+  const request = axios.get(CORS_PROXY+ROOT_URL+search);
 
   return {
     type: FETCH_GUITAR,
@@ -19,7 +21,7 @@ export function fetchGuitar(search) {
 
 export function fetchGuitarSheet(id) {
   const ROOT_URL = "http://app.ultimate-guitar.com/iphone/tab.php?id=";
-  const request = axios.get('https://crossorigin.me/'+ROOT_URL+id);
+  const request = axios.get(CORS_PROXY+ROOT_URL+id);
 
   return {
     type: FETCH_GUITAR_SHEET,
@@ -29,7 +31,7 @@ export function fetchGuitarSheet(id) {
 
 export function fetchPiano(search) {
   const ROOT_URL = "http://api.musescore.com/services/rest/score.json&oauth_consumer_key=wx3Sss3Wm2ChzqFNiyEPQy5R2ffVgRqZ&part=0&text=";
-  const request = axios.get('https://crossorigin.me/'+ROOT_URL+search);
+  const request = axios.get(CORS_PROXY+ROOT_URL+search);
 
   return {
     type: FETCH_PIANO,
@@ -39,7 +41,7 @@ export function fetchPiano(search) {
 
 export function fetchPianoSheet(id) {
   const ROOT_URL = "http://musescore.com/oembed/endpoint?url=https://musescore.com/score/";
-  const request = axios.get('https://crossorigin.me/'+ROOT_URL+id+'&maxheight=700');
+  const request = axios.get(CORS_PROXY+ROOT_URL+id+'&maxheight=700');
 
   return {
     type: FETCH_PIANO_SHEET,
@@ -49,7 +51,7 @@ export function fetchPianoSheet(id) {
 
 export function fetchArtist(name) {
   const ROOT_URL = "http://www.theaudiodb.com/api/v1/json/1/search.php?s=";
-  const request = axios.get('https://crossorigin.me/'+ROOT_URL+name);
+  const request = axios.get(CORS_PROXY+ROOT_URL+name);
 
   return {
     type: FETCH_ARTIST,
