@@ -29269,8 +29269,8 @@
 	var FETCH_ARTIST = exports.FETCH_ARTIST = "FETCH_ARTIST";
 	var SET_INSTRUMENT = exports.SET_INSTRUMENT = "SET_INSTRUMENT";
 	
-	var CORS_REQUIRED = false;
-	var CORS_PROXY = CORS_REQUIRED ? "https://crossorigin.me/" : "";
+	var CORS_PROXY_REQUIRED = true;
+	var CORS_PROXY = CORS_PROXY_REQUIRED ? "https://crossorigin.me/" : "";
 	
 	function fetchGuitar(search) {
 	  var ROOT_URL = "https://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";

@@ -6,8 +6,8 @@ export const FETCH_PIANO_SHEET = "FETCH_PIANO_SHEET";
 export const FETCH_ARTIST = "FETCH_ARTIST";
 export const SET_INSTRUMENT = "SET_INSTRUMENT";
 
-const CORS_REQUIRED = false;
-const CORS_PROXY = CORS_REQUIRED ? "https://crossorigin.me/" : "";
+const CORS_PROXY_REQUIRED = true;
+const CORS_PROXY = CORS_PROXY_REQUIRED ? "https://crossorigin.me/" : "";
 
 export function fetchGuitar(search) {
   const ROOT_URL = "https://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";
