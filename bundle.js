@@ -29273,7 +29273,7 @@
 	var CORS_PROXY = CORS_REQUIRED ? "https://crossorigin.me/" : "";
 	
 	function fetchGuitar(search) {
-	  var ROOT_URL = "http://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";
+	  var ROOT_URL = "https://app.ultimate-guitar.com/search.php?search_type=title&page=1&iphone=1&value=";
 	  var request = _axios2.default.get(CORS_PROXY + ROOT_URL + search);
 	
 	  return {
@@ -29283,7 +29283,7 @@
 	}
 	
 	function fetchGuitarSheet(id) {
-	  var ROOT_URL = "http://app.ultimate-guitar.com/iphone/tab.php?id=";
+	  var ROOT_URL = "https://app.ultimate-guitar.com/iphone/tab.php?id=";
 	  var request = _axios2.default.get(CORS_PROXY + ROOT_URL + id);
 	
 	  return {
@@ -29293,7 +29293,7 @@
 	}
 	
 	function fetchPiano(search) {
-	  var ROOT_URL = "http://api.musescore.com/services/rest/score.json&oauth_consumer_key=wx3Sss3Wm2ChzqFNiyEPQy5R2ffVgRqZ&part=0&text=";
+	  var ROOT_URL = "https://api.musescore.com/services/rest/score.json&oauth_consumer_key=wx3Sss3Wm2ChzqFNiyEPQy5R2ffVgRqZ&part=0&text=";
 	  var request = _axios2.default.get(CORS_PROXY + ROOT_URL + search);
 	
 	  return {
@@ -29303,7 +29303,7 @@
 	}
 	
 	function fetchPianoSheet(id) {
-	  var ROOT_URL = "http://musescore.com/oembed/endpoint?url=https://musescore.com/score/";
+	  var ROOT_URL = "https://musescore.com/oembed/endpoint?url=https://musescore.com/score/";
 	  var request = _axios2.default.get(CORS_PROXY + ROOT_URL + id + '&maxheight=700');
 	
 	  return {
